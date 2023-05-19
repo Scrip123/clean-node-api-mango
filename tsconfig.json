@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "ES2019",
+    "module": "commonjs",
+    "outDir": "./dist",
+    "paths": {
+      "@modules/*": ["modules/*"],
+    },
+    "esModuleInterop": true,
+    "allowJs": true
+  }
+}
