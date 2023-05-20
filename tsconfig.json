@@ -3,8 +3,9 @@
     "target": "ES2019",
     "module": "commonjs",
     "outDir": "./dist",
+    "baseUrl": "./src",
     "paths": {
-      "@modules/*": ["modules/*"],
+      "@presentation/*": ["presentation/*"],
     },
     "esModuleInterop": true,
     "allowJs": true
