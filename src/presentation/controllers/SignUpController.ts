@@ -1,8 +1,9 @@
 import { MissingParamError } from '@presentation/errors/MissingParamError'
 import { badRequest } from '@presentation/helpers/badRequest'
+import { IController } from '@presentation/protocols/IController'
 import { IHttpRequest, IHttpResponse } from '@presentation/protocols/IHttp'
 
-export class SignUpController {
+export class SignUpController implements IController {
   handle (httpRequest: IHttpRequest): IHttpResponse {
     const requiredFields = ['name', 'email', 'password', 'passwordConfirmation']
     for (const field of requiredFields) {
