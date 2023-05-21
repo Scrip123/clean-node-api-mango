@@ -7,5 +7,9 @@ export default {
   testEnvironment: 'jest-environment-node',
   transform: {
     '.+\\.ts$': 'ts-jest'
+  },
+  // jest configuratio to support @modules
+  moduleNameMapper: {
+    '@presentation/(.*)': '<rootDir>/src/presentation/$1'
   }
 }
