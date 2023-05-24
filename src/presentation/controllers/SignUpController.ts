@@ -18,6 +18,5 @@ export class SignUpController implements IController {
     if (!isValid) {
       return badRequest(new InvalidParamError('email'))
     }
-    // return { statusCode: 200, body: new Error('sucess') }
   }
 }
