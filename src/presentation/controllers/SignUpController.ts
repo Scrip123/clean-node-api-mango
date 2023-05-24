@@ -1,5 +1,4 @@
-import { InvalidParamError } from '@presentation/errors/InvalidParamError'
-import { MissingParamError } from '@presentation/errors/MissingParamError'
+import { InvalidParamError, MissingParamError } from '@presentation/errors'
 import { badRequest, serverError } from '@presentation/helpers/badRequest'
 import { IController } from '@presentation/protocols/IController'
 import { IEmailValidator } from '@presentation/protocols/IEmailValidator'
