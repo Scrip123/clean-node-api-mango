@@ -1,0 +1,6 @@
+export interface IAccountModelDataBase {
+  id: string
+  name: string
+  email: string
+  password: string
+}
