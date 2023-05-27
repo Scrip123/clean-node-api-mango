@@ -1,6 +1,6 @@
 export default {
   collectCoverage: true,
-  // coverageDirectory: 'coverage',
+  coverageDirectory: 'coverage',
   coverageProvider: 'v8',
   roots: ['<rootDir>/src'],
   collectCoverageFrom: ['<rootDir>/src/**/*.spec.ts'],
@@ -8,6 +8,7 @@ export default {
   transform: {
     '.+\\.ts$': 'ts-jest'
   },
+  testMatch: ['**/*.spec.ts'],
   // jest configuratio to support @modules
   moduleNameMapper: {
     '@presentation/(.*)': '<rootDir>/src/presentation/$1'
