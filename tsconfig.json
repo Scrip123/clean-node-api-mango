@@ -8,7 +8,7 @@
     "paths": {
       "@presentation/*": ["presentation/*"],
       "@domain/*":["domain/*"],
-      "@utils/*":["utils/*"]
+      "@utils/*":["src/utils/*"]
     },
     "esModuleInterop": true,
     "allowJs": true,
