@@ -1,5 +1,5 @@
 import { IEncrypter } from 'data/protocols/IEncrypter'
-import { DbAddAcountUseCase } from './DbAddAccount'
+import { DbAddAcount } from './DbAddAccount'
 
 const makeEncrypter = (): IEncrypter => {
   class EncrypterStub implements IEncrypter {
@@ -10,12 +10,12 @@ const makeEncrypter = (): IEncrypter => {
   return new EncrypterStub()
 }
 interface ISutTypes {
-  sut: DbAddAcountUseCase
+  sut: DbAddAcount
   encryptStub: IEncrypter
 }
 const makeSut = (): ISutTypes => {
   const encryptStub = makeEncrypter()
-  const sut = new DbAddAcountUseCase(encryptStub)
+  const sut = new DbAddAcount(encryptStub)
   return {
     sut,
     encryptStub
