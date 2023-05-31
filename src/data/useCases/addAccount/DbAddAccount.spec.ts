@@ -1,5 +1,5 @@
 import { IEncrypter } from 'data/protocols/IEncrypter'
-import { DbAddAcountUseCase } from './DbAddAccountUseCase'
+import { DbAddAcountUseCase } from './DbAddAccount'
 
 const makeEncrypter = (): IEncrypter => {
   class EncrypterStub implements IEncrypter {
