@@ -1,17 +1,20 @@
 import { IEncrypter } from 'data/protocols/IEncrypter'
 import { DbAddAcountUseCase } from './DbAddAccountUseCase'
 
+const makeEncrypter = (): IEncrypter => {
+  class EncrypterStub implements IEncrypter {
+    async encrypt (value: string): Promise<string> {
+      return await new Promise((resolve, reject) => { resolve('hashed_password') })
+    }
+  }
+  return new EncrypterStub()
+}
 interface ISutTypes {
   sut: DbAddAcountUseCase
   encryptStub: IEncrypter
 }
 const makeSut = (): ISutTypes => {
-  class EncrypterStub {
-    async encrypt (value: string): Promise<string> {
-      return await new Promise((resolve, reject) => { resolve('hashed_password') })
-    }
-  }
-  const encryptStub = new EncrypterStub()
+  const encryptStub = makeEncrypter()
   const sut = new DbAddAcountUseCase(encryptStub)
   return {
     sut,
