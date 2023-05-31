@@ -1,4 +1,4 @@
-import { IEncrypter } from 'data/protocols/IEncrypter'
+import { IEncrypter } from './dbAddAccountProtocols'
 import { DbAddAcount } from './DbAddAccount'
 
 const makeEncrypter = (): IEncrypter => {
