@@ -4,7 +4,8 @@ export default {
   coverageProvider: 'v8',
   roots: ['<rootDir>/src'],
   collectCoverageFrom: ['<rootDir>/src/**/*.spec.ts'],
-  testEnvironment: 'jest-environment-node',
+  // testEnvironment: 'jest-environment-node',
+  preset: '@shelf/jest-mongodb',
   transform: {
     '.+\\.ts$': 'ts-jest'
   },
