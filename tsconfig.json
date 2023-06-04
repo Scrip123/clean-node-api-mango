@@ -10,7 +10,8 @@
       "@domain/*":["domain/*"],
       "@utils/*":["src/utils/*"],
       "@data/*":["src/data/*"],
-      "@infra/*":["src/infra/*"]
+      "@infra/*":["src/infra/*"],
+      "@main/*":["src/main/*"]
     },
     "esModuleInterop": true,
     "allowJs": true,
