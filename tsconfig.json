@@ -8,10 +8,10 @@
     "paths": {
       "@presentation/*": ["presentation/*"],
       "@domain/*":["domain/*"],
-      "@utils/*":["src/utils/*"],
-      "@data/*":["src/data/*"],
-      "@infra/*":["src/infra/*"],
-      "@main/*":["src/main/*"]
+      "@utils/*":["utils/*"],
+      "@data/*":["data/*"],
+      "@infra/*":["infra/*"],
+      "@main/*":["main/*"]
     },
     "esModuleInterop": true,
     "allowJs": true,
