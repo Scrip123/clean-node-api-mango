@@ -12,7 +12,7 @@ export default {
   transform: {
     '.+\\.ts$': 'ts-jest'
   },
-  testMatch: ['**/*.spec.ts'],
+  testMatch: ['**/*.spec.ts', '**/*.test.ts'],
   // jest configuratio to support @modules
   moduleNameMapper: {
     '@presentation/(.*)': '<rootDir>/src/presentation/$1',
