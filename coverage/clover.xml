@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1687972945428" clover="3.2.0">
-  <project timestamp="1687972945428" name="All files">
-    <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0" elements="0" coveredelements="0" complexity="0" loc="0" ncloc="0" packages="0" files="0" classes="0"/>
+<coverage generated="1688026539456" clover="3.2.0">
+  <project timestamp="1688026539456" name="All files">
+    <metrics statements="2" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0" elements="4" coveredelements="0" complexity="0" loc="2" ncloc="2" packages="1" files="1" classes="1"/>
+    <file name="index.ts" path="/home/elves/www/mango-all-courses/clean-node-api-mango/src/presentation/protocols/index.ts">
+      <metrics statements="2" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
+      <line num="1" count="0" type="cond" truecount="0" falsecount="1"/>
+      <line num="2" count="0" type="stmt"/>
+    </file>
   </project>
 </coverage>

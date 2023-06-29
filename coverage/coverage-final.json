@@ -1,1 +1,2 @@
-{}
+{"/home/elves/www/mango-all-courses/clean-node-api-mango/src/presentation/protocols/index.ts": {"path":"/home/elves/www/mango-all-courses/clean-node-api-mango/src/presentation/protocols/index.ts","all":true,"statementMap":{"0":{"start":{"line":1,"column":0},"end":{"line":1,"column":29}},"1":{"start":{"line":2,"column":0},"end":{"line":2,"column":23}}},"s":{"0":0,"1":0},"branchMap":{"0":{"type":"branch","line":1,"loc":{"start":{"line":1,"column":0},"end":{"line":2,"column":23}},"locations":[{"start":{"line":1,"column":0},"end":{"line":2,"column":23}}]}},"b":{"0":[0]},"fnMap":{"0":{"name":"(empty-report)","decl":{"start":{"line":1,"column":0},"end":{"line":2,"column":23}},"loc":{"start":{"line":1,"column":0},"end":{"line":2,"column":23}},"line":1}},"f":{"0":0}}
+}
