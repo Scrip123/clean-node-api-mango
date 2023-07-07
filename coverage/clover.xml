@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1688751605373" clover="3.2.0">
-  <project timestamp="1688751605374" name="All files">
+<coverage generated="1688752802117" clover="3.2.0">
+  <project timestamp="1688752802117" name="All files">
     <metrics statements="26" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0" elements="28" coveredelements="0" complexity="0" loc="26" ncloc="26" packages="1" files="1" classes="1"/>
     <file name="logErrorRepository.spec.ts" path="/home/elves/www/mango-all-courses/clean-node-api-mango/src/infra/db/mongoDb/LogRepository/logErrorRepository.spec.ts">
       <metrics statements="26" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
