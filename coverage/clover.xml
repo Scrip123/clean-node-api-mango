@@ -1,53 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1688747191148" clover="3.2.0">
-  <project timestamp="1688747191148" name="All files">
-    <metrics statements="35" coveredstatements="30" conditionals="5" coveredconditionals="4" methods="5" coveredmethods="4" elements="45" coveredelements="38" complexity="0" loc="35" ncloc="35" packages="2" files="2" classes="2"/>
-    <package name="LogRepository">
-      <metrics statements="12" coveredstatements="12" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
-      <file name="LogErrorRepository.ts" path="/home/elves/www/mango-all-courses/clean-node-api-mango/src/infra/db/mongoDb/LogRepository/LogErrorRepository.ts">
-        <metrics statements="12" coveredstatements="12" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="5" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="6" count="1" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
-        <line num="8" count="1" type="stmt"/>
-        <line num="9" count="1" type="stmt"/>
-        <line num="10" count="1" type="stmt"/>
-        <line num="11" count="1" type="stmt"/>
-        <line num="12" count="1" type="stmt"/>
-      </file>
-    </package>
-    <package name="helpers">
-      <metrics statements="23" coveredstatements="18" conditionals="4" coveredconditionals="3" methods="4" coveredmethods="3"/>
-      <file name="mongoHelper.ts" path="/home/elves/www/mango-all-courses/clean-node-api-mango/src/infra/db/mongoDb/helpers/mongoHelper.ts">
-        <metrics statements="23" coveredstatements="18" conditionals="4" coveredconditionals="3" methods="4" coveredmethods="3"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="5" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="6" count="1" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
-        <line num="8" count="1" type="stmt"/>
-        <line num="9" count="1" type="stmt"/>
-        <line num="10" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="11" count="1" type="stmt"/>
-        <line num="12" count="1" type="stmt"/>
-        <line num="13" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="14" count="2" type="cond" truecount="0" falsecount="1"/>
-        <line num="15" count="0" type="stmt"/>
-        <line num="16" count="0" type="stmt"/>
-        <line num="17" count="2" type="stmt"/>
-        <line num="18" count="1" type="stmt"/>
-        <line num="19" count="1" type="stmt"/>
-        <line num="20" count="0" type="stmt"/>
-        <line num="21" count="0" type="stmt"/>
-        <line num="22" count="0" type="stmt"/>
-        <line num="23" count="1" type="stmt"/>
-      </file>
-    </package>
+<coverage generated="1688751605373" clover="3.2.0">
+  <project timestamp="1688751605374" name="All files">
+    <metrics statements="26" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0" elements="28" coveredelements="0" complexity="0" loc="26" ncloc="26" packages="1" files="1" classes="1"/>
+    <file name="logErrorRepository.spec.ts" path="/home/elves/www/mango-all-courses/clean-node-api-mango/src/infra/db/mongoDb/LogRepository/logErrorRepository.spec.ts">
+      <metrics statements="26" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
+      <line num="1" count="0" type="cond" truecount="0" falsecount="1"/>
+      <line num="2" count="0" type="stmt"/>
+      <line num="3" count="0" type="stmt"/>
+      <line num="4" count="0" type="stmt"/>
+      <line num="5" count="0" type="stmt"/>
+      <line num="6" count="0" type="stmt"/>
+      <line num="7" count="0" type="stmt"/>
+      <line num="8" count="0" type="stmt"/>
+      <line num="9" count="0" type="stmt"/>
+      <line num="10" count="0" type="stmt"/>
+      <line num="11" count="0" type="stmt"/>
+      <line num="12" count="0" type="stmt"/>
+      <line num="13" count="0" type="stmt"/>
+      <line num="14" count="0" type="stmt"/>
+      <line num="15" count="0" type="stmt"/>
+      <line num="16" count="0" type="stmt"/>
+      <line num="17" count="0" type="stmt"/>
+      <line num="18" count="0" type="stmt"/>
+      <line num="19" count="0" type="stmt"/>
+      <line num="20" count="0" type="stmt"/>
+      <line num="21" count="0" type="stmt"/>
+      <line num="22" count="0" type="stmt"/>
+      <line num="23" count="0" type="stmt"/>
+      <line num="24" count="0" type="stmt"/>
+      <line num="25" count="0" type="stmt"/>
+      <line num="26" count="0" type="stmt"/>
+    </file>
   </project>
 </coverage>
