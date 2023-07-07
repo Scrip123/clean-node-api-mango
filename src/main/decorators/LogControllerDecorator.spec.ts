@@ -1,7 +1,7 @@
 import { IController, IHttpRequest, IHttpResponse } from '@presentation/protocols'
 import { LogControllerDecorator } from './LogControllerDecorator'
 import { ok, serverError } from '@presentation/helpers/httpHelper'
-import { ILogErrorRepositor } from '@data/protocols/ILogErrorRepository'
+import { ILogErrorRepository } from '@data/protocols/ILogErrorRepository'
 import { IAccountModelDataBase } from '@domain/models/IAccountModel'
 
 const makeController = (): IController => {
@@ -12,9 +12,9 @@ const makeController = (): IController => {
   }
   return new ControllerStub()
 }
-const makeLogErrorRepository = (): ILogErrorRepositor => {
-  class LogErrorRepositoryStub implements ILogErrorRepositor {
-    async log (stack: string): Promise<void> {
+const makeLogErrorRepository = (): ILogErrorRepository => {
+  class LogErrorRepositoryStub implements ILogErrorRepository {
+    async logError (stack: string): Promise<void> {
       return await new Promise(resolve => resolve())
     }
   }
@@ -23,7 +23,7 @@ const makeLogErrorRepository = (): ILogErrorRepositor => {
 interface ISutTypes {
   sut: LogControllerDecorator
   controllerStub: IController
-  logErrorRepositoryStub: ILogErrorRepositor
+  logErrorRepositoryStub: ILogErrorRepository
 }
 const makeSut = (): ISutTypes => {
   const controllerStub = makeController()
@@ -74,7 +74,7 @@ describe('Log Controller Decorator', () => {
   it('Should call LogErrorRepository with correct error if controller returns a server error', async () => {
     const { sut, controllerStub, logErrorRepositoryStub } = makeSut()
 
-    const logSpy = jest.spyOn(logErrorRepositoryStub, 'log')
+    const logSpy = jest.spyOn(logErrorRepositoryStub, 'logError')
     jest.spyOn(controllerStub, 'handle').mockReturnValueOnce(new Promise(resolve => resolve(makeServerError())))
     const httpRequest = {
       body: {
