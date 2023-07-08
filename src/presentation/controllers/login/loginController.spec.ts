@@ -2,10 +2,10 @@ import { MissingParamError } from '@presentation/errors'
 import { badRequest } from '@presentation/helpers/httpHelper'
 import { LoginController } from './LoginController'
 
-interface SutTypes {
+interface ISutTypes {
   sut: LoginController
 }
-const makeSut = (): SutTypes => {
+const makeSut = (): ISutTypes => {
   const sut = new LoginController()
   return {
     sut
