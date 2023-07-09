@@ -1,5 +1,5 @@
 import { InvalidParamError, MissingParamError } from '@presentation/errors'
-import { badRequest, serverError } from '@presentation/helpers/httpHelper'
+import { badRequest, serverError, unAuthorized } from '@presentation/helpers/httpHelper'
 import { LoginController } from './LoginController'
 import { IEmailValidator, IHttpRequest } from '../signUp/signUpProtocols'
 import { IAuthentication } from '@domain/useCases/IAuthentication'
@@ -20,7 +20,7 @@ const makeEmailValidator = (): IEmailValidator => {
 const makeAuthentication = (): IAuthentication => {
   class AuthenticationStub implements IAuthentication {
     async auth (email: string, password: string): Promise<string> {
-      return 'any_token'
+      return await new Promise(resolve => resolve('any_token'))
     }
   }
   return new AuthenticationStub()
@@ -96,5 +96,15 @@ describe('Login Controller', () => {
 
     await sut.handle(makeFakeRequest())
     expect(authSpy).toHaveBeenCalledWith('any_email@gmail.com', 'any_password')
+  })
+
+  it('Should returns 401 if invalid credentials are provided', async () => {
+    const { sut, authenticationStub } = makeSut()
+    jest.spyOn(authenticationStub, 'auth').mockReturnValueOnce(
+      new Promise(resolve => resolve(null))
+    )
+
+    const httResponse = await sut.handle(makeFakeRequest())
+    expect(httResponse).toEqual(unAuthorized())
   })
 })
