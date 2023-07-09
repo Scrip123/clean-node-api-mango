@@ -1,6 +1,6 @@
 import { badRequest } from '@presentation/helpers/httpHelper'
 import { IController, IEmailValidator, IHttpRequest, IHttpResponse } from '../signUp/signUpProtocols'
-import { MissingParamError } from '@presentation/errors'
+import { InvalidParamError, MissingParamError } from '@presentation/errors'
 
 export class LoginController implements IController {
   constructor (private readonly emailValidator: IEmailValidator) {}
@@ -11,6 +11,9 @@ export class LoginController implements IController {
     if (!httpRequest.body.password) {
       return await new Promise(resolve => resolve(badRequest(new MissingParamError('password'))))
     }
-    this.emailValidator.isValid(httpRequest.body.email)
+    const isValid = this.emailValidator.isValid(httpRequest.body.email)
+    if (!isValid) {
+      return await new Promise(resolve => resolve(badRequest(new InvalidParamError('email'))))
+    }
   }
 }
