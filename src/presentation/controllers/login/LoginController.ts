@@ -1,4 +1,4 @@
-import { badRequest, serverError, unAuthorized } from '@presentation/helpers/httpHelper'
+import { badRequest, ok, serverError, unAuthorized } from '@presentation/helpers/httpHelper'
 import { IController, IEmailValidator, IHttpRequest, IHttpResponse, IAuthentication } from './loginProtocols'
 import { InvalidParamError, MissingParamError } from '@presentation/errors'
 
@@ -24,6 +24,7 @@ export class LoginController implements IController {
       if (!acessToken) {
         return unAuthorized()
       }
+      return ok({ acessToken })
     } catch (error) {
       return serverError(error)
     }
