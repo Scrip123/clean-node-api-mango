@@ -1,8 +1,7 @@
 import { InvalidParamError, MissingParamError } from '@presentation/errors'
 import { badRequest, serverError, unAuthorized } from '@presentation/helpers/httpHelper'
 import { LoginController } from './LoginController'
-import { IEmailValidator, IHttpRequest } from '../signUp/signUpProtocols'
-import { IAuthentication } from '@domain/useCases/IAuthentication'
+import { IEmailValidator, IHttpRequest, IAuthentication } from './loginProtocols'
 
 interface ISutTypes {
   sut: LoginController
