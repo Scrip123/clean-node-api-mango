@@ -1,5 +1,5 @@
 import { SignUpController } from './SignUpController'
-import { InvalidParamError, MissingParamError, ServerError } from '@presentation/errors'
+import { MissingParamError, ServerError } from '@presentation/errors'
 import { IEmailValidator, IAccountModelDataBase, IAddAccount, IAddAccountModel, IHttpRequest, IValidation }
   from './signUpProtocols'
 import { ok, badRequest, serverError } from '@presentation/helpers/httpHelper'
@@ -39,7 +39,7 @@ const mockSut = (): ISutTypes => {
   const emailValidatorStub = makeEmailValidator()
   const addAccountStub = makeAddAccount()
   const validationStub = makeValidation()
-  const sut = new SignUpController(emailValidatorStub, addAccountStub, validationStub)
+  const sut = new SignUpController(addAccountStub, validationStub)
   return {
     sut,
     emailValidatorStub,
@@ -63,32 +63,6 @@ const makeFakeAccount = (): IAccountModelDataBase => (
     password: 'valid_password'
   })
 describe('Signup controller', () => {
-  it('Should return 400 if an invalid email is provided', async () => {
-    const { sut, emailValidatorStub } = mockSut()
-    jest.spyOn(emailValidatorStub, 'isValid').mockReturnValueOnce(false)
-
-    const httpResponse = await sut.handle(makeFakeRequest())
-    expect(httpResponse).toEqual(badRequest(new InvalidParamError('email')))
-  })
-
-  it('Should call EmailValidator with correct email', async () => {
-    const { sut, emailValidatorStub } = mockSut()
-    const isValidSpy = jest.spyOn(emailValidatorStub, 'isValid')
-
-    await sut.handle(makeFakeRequest())
-    expect(isValidSpy).toHaveBeenCalledWith('any_email@gmail.com')
-  })
-
-  it('Should return 500 if EmailValidator throws', async () => {
-    const { sut, emailValidatorStub } = mockSut()
-    jest.spyOn(emailValidatorStub, 'isValid').mockImplementationOnce(() => {
-      throw new Error()
-    })
-
-    const httpResponse = await sut.handle(makeFakeRequest())
-    expect(httpResponse).toEqual(serverError(new ServerError()))
-  })
-
   it('Should call AddAccount with correct values', async () => {
     const { sut, addAccountStub } = mockSut()
     const addSpy = jest.spyOn(addAccountStub, 'add')
