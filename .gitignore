@@ -1,3 +1,6 @@
 node_modules
 dist
 coverage
+coverage/clover.xml
+coverage/lcov-report/index.html
+globalConfig.json
