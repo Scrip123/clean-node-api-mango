@@ -4,3 +4,6 @@ coverage
 coverage/clover.xml
 coverage/lcov-report/index.html
 globalConfig.json
+coverage/coverage-final.json
+coverage/lcov.info
+
