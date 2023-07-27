@@ -2,7 +2,7 @@ import { SignUpController } from './SignUpController'
 import { MissingParamError, ServerError } from '@presentation/errors'
 import { IEmailValidator, IAccountModelDataBase, IAddAccount, IAddAccountModel, IHttpRequest, IValidation }
   from './signUpProtocols'
-import { ok, badRequest, serverError } from '@presentation/helpers/httpHelper'
+import { ok, badRequest, serverError } from '@presentation/helpers/http/httpHelper'
 
 const makeEmailValidator = (): IEmailValidator => {
   class EmailValidatorStub implements IEmailValidator {

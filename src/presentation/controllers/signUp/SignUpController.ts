@@ -1,4 +1,4 @@
-import { badRequest, serverError, ok } from '@presentation/helpers/httpHelper'
+import { badRequest, serverError, ok } from '@presentation/helpers/http/httpHelper'
 import { IHttpRequest, IHttpResponse, IController, IAddAccount, IValidation }
   from './signUpProtocols'
 
