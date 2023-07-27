@@ -12,7 +12,7 @@ export class LoginController implements IController {
       if (error) return badRequest(error)
       const { email, password } = httpRequest.body
 
-      const acessToken = await this.authentication.auth(email, password)
+      const acessToken = await this.authentication.auth({ email, password })
       if (!acessToken) {
         return unAuthorized()
       }
