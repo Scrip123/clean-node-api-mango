@@ -1,9 +1,7 @@
-import { ValidationComposite } from '@presentation/helpers/validators/ValidationComposite'
 import { IValidation } from '@presentation/protocols/IValidation'
-import { RequiredFieldValidation } from '@presentation/helpers/validators/RequiredFieldValidation'
-import { EmailValidation } from '@presentation/helpers/validators/EmailValidation'
 import { IEmailValidator } from '@presentation/protocols/IEmailValidator'
 import { makeLoginValidation } from './loginFactory'
+import { EmailValidation, RequiredFieldValidation, ValidationComposite } from '@presentation/helpers/validators'
 
 const makeEmailValidator = (): IEmailValidator => {
   class EmailValidatorStub implements IEmailValidator {
