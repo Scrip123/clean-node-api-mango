@@ -1,6 +1,6 @@
 import { IAccountModelDataBase } from '@domain/models/IAccountModel'
 import { IAddAccountModel } from '@domain/useCases/IAddAcount'
-import { IAddAccountRepository } from 'data/protocols/IAddAccountRepository'
+import { IAddAccountRepository } from '@data/protocols/db/IAddAccountRepository'
 import { MongoHelper } from '../helpers/mongoHelper'
 
 export class AccountMongoRepository implements IAddAccountRepository {

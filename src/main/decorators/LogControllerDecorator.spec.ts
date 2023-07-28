@@ -1,7 +1,7 @@
 import { IController, IHttpRequest, IHttpResponse } from '@presentation/protocols'
 import { LogControllerDecorator } from './LogControllerDecorator'
 import { ok, serverError } from '@presentation/helpers/http/httpHelper'
-import { ILogErrorRepository } from '@data/protocols/ILogErrorRepository'
+import { ILogErrorRepository } from '@data/protocols/db/ILogErrorRepository'
 import { IAccountModelDataBase } from '@domain/models/IAccountModel'
 
 const makeController = (): IController => {

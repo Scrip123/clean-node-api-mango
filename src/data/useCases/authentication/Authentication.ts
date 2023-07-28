@@ -1,4 +1,4 @@
-import { ILoadAccountByEmailRepository } from '@data/protocols/ILoadAccountByEmailRepository'
+import { ILoadAccountByEmailRepository } from '@data/protocols/db/ILoadAccountByEmailRepository'
 import { IAuthentication, IAuthenticationModel } from '@domain/useCases/IAuthentication'
 
 export class AuthenticationUseCase implements IAuthentication {

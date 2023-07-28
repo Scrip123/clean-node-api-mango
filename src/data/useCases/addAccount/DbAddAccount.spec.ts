@@ -1,6 +1,6 @@
 import { IAccountModelDataBase, IAddAccountModel, IEncrypter } from './dbAddAccountProtocols'
 import { DbAddAcount } from './DbAddAccount'
-import { IAddAccountRepository } from 'data/protocols/IAddAccountRepository'
+import { IAddAccountRepository } from '@data/protocols/db/IAddAccountRepository'
 
 const makeAddAccountRepository = (): IAddAccountRepository => {
   class AddAccountRepositoryStub implements IAddAccountRepository {

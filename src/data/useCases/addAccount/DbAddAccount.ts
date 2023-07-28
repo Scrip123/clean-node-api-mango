@@ -1,4 +1,4 @@
-import { IAddAccountRepository } from 'data/protocols/IAddAccountRepository'
+import { IAddAccountRepository } from '@data/protocols/db/IAddAccountRepository'
 import { IAccountModelDataBase, IAddAccount, IAddAccountModel, IEncrypter }
   from './dbAddAccountProtocols'
 
