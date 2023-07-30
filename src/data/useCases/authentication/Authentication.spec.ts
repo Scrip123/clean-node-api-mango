@@ -108,18 +108,24 @@ describe('DbAuthentication useCase', () => {
     const accessToken = await sut.auth(makeFakeAuthentication())
     expect(accessToken).toBeNull()
   })
-  it('Should call toknGenerator with correct id', async () => {
+  it('Should call tokenGenerator with correct id', async () => {
     const { sut, tokenGeneratorStub } = makeSut()
     const tokenSpy = jest.spyOn(tokenGeneratorStub, 'generate')
     await sut.auth(makeFakeAuthentication())
     expect(tokenSpy).toHaveBeenLastCalledWith('any_id')
   })
 
-  it('Should throw if toknGenerator throws', async () => {
+  it('Should throw if tokenGenerator throws', async () => {
     const { sut, tokenGeneratorStub } = makeSut()
     jest.spyOn(tokenGeneratorStub, 'generate')
       .mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())))
     const promise = sut.auth(makeFakeAuthentication())
     await expect(promise).rejects.toThrow()
+  })
+
+  it('Should returns a token on success', async () => {
+    const { sut } = makeSut()
+    const accessToken = await sut.auth(makeFakeAuthentication())
+    expect(accessToken).toBe('any_token')
   })
 })
