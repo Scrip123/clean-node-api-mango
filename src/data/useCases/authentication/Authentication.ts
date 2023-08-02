@@ -1,8 +1,11 @@
-import { IHashCompare } from '@data/protocols/cryptografy/IHashCompare'
-import { ILoadAccountByEmailRepository } from '@data/protocols/db/ILoadAccountByEmailRepository'
-import { ITokenGenerator } from '@data/protocols/db/ITokenGenerator'
-import { IUpdateAccessTokenRepository } from '@data/protocols/db/IUpdateAccessTokenRepository'
-import { IAuthentication, IAuthenticationModel } from '@domain/useCases/IAuthentication'
+import {
+  IAuthentication,
+  IAuthenticationModel,
+  IHashCompare,
+  ILoadAccountByEmailRepository,
+  ITokenGenerator,
+  IUpdateAccessTokenRepository
+} from './authenticationProtocols'
 
 export class AuthenticationUseCase implements IAuthentication {
   constructor (
