@@ -24,12 +24,12 @@ const makeLoadAccountByEmailRepository = (): ILoadAccountByEmailRepository => {
 }
 
 const makeHahsComapre = (): IHashCompare => {
-  class LoadAccountByEmailRepositoryStub implements IHashCompare {
+  class HashCompareStub implements IHashCompare {
     async compare (value: string, hash: string): Promise<boolean> {
       return true
     }
   }
-  return new LoadAccountByEmailRepositoryStub()
+  return new HashCompareStub()
 }
 const makeEncrypterToken = (): IEncrypterToken => {
   class EncrypterTokenStub implements IEncrypterToken {
