@@ -44,4 +44,10 @@ describe('Bcrypter Adapter', () => {
     await sut.compare('any_value', 'any_hash')
     expect(hashSpy).toHaveBeenCalledWith('any_value', 'any_hash')
   })
+
+  it('Should return a true when compare succeds', async () => {
+    const sut = makeSut()
+    const hash = await sut.compare('any_value', 'any_hash')
+    expect(hash).toBe(true)
+  })
 })
