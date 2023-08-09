@@ -1,6 +1,6 @@
 import { IValidation } from '@presentation/protocols/IValidation'
 import { IEmailValidator } from '@presentation/protocols/IEmailValidator'
-import { makeLoginValidation } from './loginFactory'
+import { makeLoginValidation } from './loginValidationFactory'
 import { EmailValidation, RequiredFieldValidation, ValidationComposite } from '@presentation/helpers/validators'
 
 const makeEmailValidator = (): IEmailValidator => {

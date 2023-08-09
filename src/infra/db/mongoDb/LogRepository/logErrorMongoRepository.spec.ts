@@ -1,5 +1,5 @@
 import { MongoHelper } from '../helpers/mongoHelper'
-import { LogErrorRepository } from './LogErrorRepository'
+import { LogErrorRepository } from './LogErrorMongoRepository'
 import { Collection } from 'mongodb'
 
 const makeSut = (): LogErrorRepository => {

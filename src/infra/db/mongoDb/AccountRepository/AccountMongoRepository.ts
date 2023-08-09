@@ -1,9 +1,9 @@
 import { IAccountModelDataBase } from '@domain/models/IAccountModel'
 import { IAddAccountModel } from '@domain/useCases/IAddAcount'
-import { IAddAccountRepository } from '@data/protocols/db/IAddAccountRepository'
+import { IAddAccountRepository } from '@data/protocols/db/account/IAddAccountRepository'
 import { MongoHelper } from '../helpers/mongoHelper'
-import { ILoadAccountByEmailRepository } from '@data/protocols/db/ILoadAccountByEmailRepository'
-import { IUpdateAccessTokenRepository } from '@data/protocols/db/IUpdateAccessTokenRepository'
+import { ILoadAccountByEmailRepository } from '@data/protocols/db/account/ILoadAccountByEmailRepository'
+import { IUpdateAccessTokenRepository } from '@data/protocols/db/account/IUpdateAccessTokenRepository'
 
 export class AccountMongoRepository
 implements IAddAccountRepository,
