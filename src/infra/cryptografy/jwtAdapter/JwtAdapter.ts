@@ -1,9 +1,9 @@
 import jwt from 'jsonwebtoken'
-import { IHasher } from '@data/protocols/cryptografy/IHasher'
+import { IEncrypter } from '@data/protocols/cryptografy/IEncrypter'
 
-export class JwtAdapter implements IHasher {
+export class JwtAdapter implements IEncrypter {
   constructor (private readonly secret: string) {}
-  async hash (value: string): Promise<string> {
+  async encrypt (value: string): Promise<string> {
     const accessToken = jwt.sign({ id: value }, this.secret)
     return accessToken
   }

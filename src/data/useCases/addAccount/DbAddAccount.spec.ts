@@ -1,4 +1,4 @@
-import { IAccountModelDataBase, IAddAccountModel, IHasher } from './dbAddAccountProtocols'
+import { IAccountModelDataBase, IAddAccountModel, IEncrypter } from './dbAddAccountProtocols'
 import { DbAddAcount } from './DbAddAccount'
 import { IAddAccountRepository } from '@data/protocols/db/IAddAccountRepository'
 
@@ -10,21 +10,21 @@ const makeAddAccountRepository = (): IAddAccountRepository => {
   }
   return new AddAccountRepositoryStub()
 }
-const makeHasher = (): IHasher => {
-  class HasherStub implements IHasher {
-    async hash (value: string): Promise<string> {
+const makeEncrypter = (): IEncrypter => {
+  class EncryptStub implements IEncrypter {
+    async encrypt (value: string): Promise<string> {
       return await new Promise((resolve, reject) => { resolve('hashed_password') })
     }
   }
-  return new HasherStub()
+  return new EncryptStub()
 }
 interface ISutTypes {
   sut: DbAddAcount
-  encryptStub: IHasher
+  encryptStub: IEncrypter
   addAccountRepositoryStub: IAddAccountRepository
 }
 const makeSut = (): ISutTypes => {
-  const encryptStub = makeHasher()
+  const encryptStub = makeEncrypter()
   const addAccountRepositoryStub = makeAddAccountRepository()
   const sut = new DbAddAcount(encryptStub, addAccountRepositoryStub)
 
@@ -46,17 +46,17 @@ const makeFakeAccountData = (): IAddAccountModel => ({
   password: 'valid_password'
 })
 describe('DbAddAccount UseCase', () => {
-  it('Should call Encrypter with correct value', async () => {
+  it('Should call Hahser with correct value', async () => {
     const { sut, encryptStub } = makeSut()
-    const encryptSpy = jest.spyOn(encryptStub, 'hash')
+    const encryptSpy = jest.spyOn(encryptStub, 'encrypt')
 
     await sut.add(makeFakeAccountData())
     expect(encryptSpy).toHaveBeenCalledWith('valid_password')
   })
 
-  it('Should throw if Encrypter throws', async () => {
+  it('Should throw if Hahser throws', async () => {
     const { sut, encryptStub } = makeSut()
-    jest.spyOn(encryptStub, 'hash').mockReturnValueOnce(
+    jest.spyOn(encryptStub, 'encrypt').mockReturnValueOnce(
       new Promise((resolve, reject) => { reject(new Error()) }))
 
     const promise = sut.add(makeFakeAccountData())
