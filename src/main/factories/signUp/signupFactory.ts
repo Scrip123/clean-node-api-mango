@@ -1,5 +1,5 @@
 import { DbAddAcount } from '@data/useCases/addAccount/DbAddAccount'
-import { BcrypterAdapter } from '@infra/cryptografy/BcrypterAdapter'
+import { BcrypterAdapter } from '@infra/cryptografy/bcryptAdapter/BcrypterAdapter'
 import { AccountMongoRepository } from '@infra/db/mongoDb/AccountRepository/AccountMongoRepository'
 import { LogErrorRepository } from '@infra/db/mongoDb/LogRepository/LogErrorMongoRepository'
 import { LogControllerDecorator } from '@main/decorators/LogControllerDecorator'
