@@ -5,9 +5,13 @@
   "compilerOptions": {
     "target": "ES2019",
     "module": "commonjs",
-    "rootDir": "./",
-    "outDir": "./dist",
-    "baseUrl": "./src",
+    "rootDir": "src",
+    "outDir": "dist",
+    "baseUrl": "src",
+    "sourceMap": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
     "paths": {
       "@presentation/*": ["presentation/*"],
       "@domain/*":["domain/*"],
@@ -17,6 +21,10 @@
       "@main/*":["main/*"]
     },
     "esModuleInterop": true,
-    "allowJs": true,
-  }
+  },
+  "include": ["src"],
+  "exclude": [
+    "**/*.spec.ts",
+    "**/*.test.ts"
+  ]
 }
