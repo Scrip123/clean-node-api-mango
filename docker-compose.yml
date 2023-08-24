@@ -10,13 +10,14 @@ services:
       - "27017:27017"
   api:
     container_name: api_container
-    build: .
-    image: clean_node_api_compose
+    build:
+      context: .
+      dockerfile: Dockerfile # Especifica o nome do Dockerfile a ser usado
     restart: always
-    command: npm start
     volumes:
-      - ./dist/:/usr/clean_node_api_mango/dist
+      - ./dist/:/usr/clean_node_api_mango/dist/
+      - ./package.json:/usr/clean_node_api_mango/package.json
     ports:
       - "3000:3000"
-    links:
+    depends_on:
       - "mongo"
