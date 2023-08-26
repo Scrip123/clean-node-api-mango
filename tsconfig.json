@@ -20,7 +20,7 @@
       "@infra/*":["infra/*"],
       "@main/*":["main/*"]
     },
-    "esModuleInterop": true,
+    "esModuleInterop": true
   },
   "include": ["src"],
   "exclude": [
