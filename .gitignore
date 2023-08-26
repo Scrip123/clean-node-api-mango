@@ -1,11 +1,13 @@
-node_modules
-dist
-coverage
+node_modules/
+dist/
+coverage/
 coverage/clover.xml
 coverage/lcov-report/index.html
 globalConfig.json
 coverage/coverage-final.json
 coverage/lcov.info
-data
-.husky
+data/
+.husky/
 
+coverage/coverage-final.json
+coverage/lcov.info
