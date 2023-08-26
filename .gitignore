@@ -7,4 +7,5 @@ globalConfig.json
 coverage/coverage-final.json
 coverage/lcov.info
 data
+.husky
 
