@@ -11,7 +11,8 @@ import {
   IAuthenticationModel
 }
   from './signUpProtocols'
-import { ok, badRequest, serverError } from '@presentation/helpers/http/httpHelper'
+import { ok, badRequest, serverError, forBidden } from '@presentation/helpers/http/httpHelper'
+import { EmailInUseError } from '@presentation/errors/EmailInUseError'
 
 const makeEmailValidator = (): IEmailValidator => {
   class EmailValidatorStub implements IEmailValidator {
@@ -101,6 +102,14 @@ describe('Signup controller', () => {
 
     const httpResponse = await sut.handle(makeFakeRequest())
     expect(httpResponse).toEqual(serverError(new ServerError()))
+  })
+
+  it('Should return 403 if addAccount return null', async () => {
+    const { sut, addAccountStub } = makeSut()
+    jest.spyOn(addAccountStub, 'add')
+      .mockReturnValueOnce(new Promise(resolve => resolve(null)))
+    const httpResponse = await sut.handle(makeFakeRequest())
+    expect(httpResponse).toEqual(forBidden(new EmailInUseError()))
   })
 
   it('Should return 200 if valid data is provided', async () => {
