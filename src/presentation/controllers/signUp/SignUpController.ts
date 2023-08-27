@@ -1,6 +1,7 @@
-import { badRequest, serverError, ok } from '@presentation/helpers/http/httpHelper'
+import { badRequest, serverError, ok, forBidden } from '@presentation/helpers/http/httpHelper'
 import { IHttpRequest, IHttpResponse, IController, IAddAccount, IValidation, IAuthentication }
   from './signUpProtocols'
+import { EmailInUseError } from '@presentation/errors/EmailInUseError'
 
 export class SignUpController implements IController {
   constructor (
@@ -16,11 +17,12 @@ export class SignUpController implements IController {
 
       const { name, email, password } = httpRequest.body
 
-      await this.addAcount.add({
+      const account = await this.addAcount.add({
         name,
         email,
         password
       })
+      if (!account) return forBidden(new EmailInUseError())
       const accessToken = await this.authentication.auth({
         email,
         password

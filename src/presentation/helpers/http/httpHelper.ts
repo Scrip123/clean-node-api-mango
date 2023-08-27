@@ -5,6 +5,10 @@ export const badRequest = (error: Error): IHttpResponse => ({
   statusCode: 400,
   body: error
 })
+export const forBidden = (error: Error): IHttpResponse => ({
+  statusCode: 403,
+  body: error
+})
 export const unAuthorized = (): IHttpResponse => ({
   statusCode: 401,
   body: new UnAuthorizedError()
