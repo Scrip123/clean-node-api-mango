@@ -1,2 +1,2 @@
 export * from '@presentation/protocols'
-export * from '@domain/useCases/IAuthentication'
+export * from '@domain/useCases/accountsDomainUseCases/IAuthentication'

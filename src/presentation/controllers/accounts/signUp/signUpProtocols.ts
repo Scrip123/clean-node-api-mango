@@ -1,5 +1,5 @@
 export * from '@presentation/protocols'
 export * from '@validation/protocols/IEmailValidator'
-export * from '@domain/useCases/IAuthentication'
-export * from '@domain/useCases/IAddAcount'
+export * from '@domain/useCases/accountsDomainUseCases/IAuthentication'
+export * from '@domain/useCases/accountsDomainUseCases/IAddAcount'
 export * from '@domain/models/IAccountModel'

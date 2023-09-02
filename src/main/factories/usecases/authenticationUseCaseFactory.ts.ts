@@ -3,7 +3,7 @@ import { AuthenticationUseCase } from '@data/useCases/accountsUseCases/authentic
 import { AccountMongoRepository } from '@infra/db/mongoDb/AccountRepository/AccountMongoRepository'
 import { BcrypterAdapter } from '@infra/cryptografy/bcryptAdapter/BcrypterAdapter'
 import { JwtAdapter } from '@infra/cryptografy/jwtAdapter/JwtAdapter'
-import { IAuthentication } from '@domain/useCases/IAuthentication'
+import { IAuthentication } from '@domain/useCases/accountsDomainUseCases/IAuthentication'
 
 export const makeAuthenticationUseCaseFactory = (): IAuthentication => {
   const salt = 12

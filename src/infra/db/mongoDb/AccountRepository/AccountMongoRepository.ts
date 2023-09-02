@@ -1,5 +1,5 @@
 import { IAccountModelDataBase } from '@domain/models/IAccountModel'
-import { IAddAccountModel } from '@domain/useCases/IAddAcount'
+import { IAddAccountModel } from '@domain/useCases/accountsDomainUseCases/IAddAcount'
 import { IAddAccountRepository } from '@data/protocols/db/account/IAddAccountRepository'
 import { MongoHelper } from '../helpers/mongoHelper'
 import { ILoadAccountByEmailRepository } from '@data/protocols/db/account/ILoadAccountByEmailRepository'

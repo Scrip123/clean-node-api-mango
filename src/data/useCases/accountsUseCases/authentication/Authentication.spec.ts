@@ -1,4 +1,4 @@
-import { IAuthenticationModel } from '@domain/useCases/IAuthentication'
+import { IAuthenticationModel } from '@domain/useCases/accountsDomainUseCases/IAuthentication'
 import { AuthenticationUseCase } from './Authentication'
 import {
   IAccountModelDataBase,
