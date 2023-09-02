@@ -15,7 +15,8 @@
       "@utils/*":["utils/*"],
       "@data/*":["data/*"],
       "@infra/*":["infra/*"],
-      "@main/*":["main/*"]
+      "@main/*":["main/*"],
+      "@validation/*":["validation/*"]
     },
     "esModuleInterop": true
   },

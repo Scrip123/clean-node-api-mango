@@ -59,6 +59,7 @@
     "@utils": "dist/utils",
     "@data": "dist/data",
     "@infra": "dist/infra",
-    "@main": "dist/main"
+    "@main": "dist/main",
+    "@validation": "dist/validation"
   }
 }

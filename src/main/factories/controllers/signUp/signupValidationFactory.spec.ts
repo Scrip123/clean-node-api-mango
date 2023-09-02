@@ -1,7 +1,7 @@
 import { makeSignUpValidation } from './signupValidationFactory'
 import { IValidation } from '@presentation/protocols/IValidation'
-import { IEmailValidator } from '@presentation/protocols/IEmailValidator'
-import { CompareFieldValidation, EmailValidation, RequiredFieldValidation, ValidationComposite } from '@presentation/helpers/validators'
+import { IEmailValidator } from '@validation/protocols/IEmailValidator'
+import { CompareFieldValidation, EmailValidation, RequiredFieldValidation, ValidationComposite } from '@validation/validators'
 
 const makeEmailValidator = (): IEmailValidator => {
   class EmailValidatorStub implements IEmailValidator {
@@ -11,7 +11,8 @@ const makeEmailValidator = (): IEmailValidator => {
   }
   return new EmailValidatorStub()
 }
-jest.mock('@presentation/helpers/validators/ValidationComposite')
+// jest.mock('@presentation/helpers/validators/ValidationComposite')
+jest.mock('@validation/validators/ValidationComposite')
 describe('SignUpValidation Factory', () => {
   it('Should call ValidationComposite with all validations', () => {
     makeSignUpValidation()
