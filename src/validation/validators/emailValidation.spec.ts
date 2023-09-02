@@ -1,5 +1,5 @@
 import { IEmailValidator }
-  from '@presentation/controllers/signUp/signUpProtocols'
+  from '@presentation/controllers/accounts/signUp/signUpProtocols'
 import { EmailValidation } from './EmailValidation'
 import { InvalidParamError } from '@presentation/errors'
 

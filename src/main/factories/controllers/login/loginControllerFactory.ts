@@ -1,4 +1,4 @@
-import { LoginController } from '@presentation/controllers/login/LoginController'
+import { LoginController } from '@presentation/controllers/accounts/login/LoginController'
 import { IController } from '@presentation/protocols'
 import { makeAuthenticationUseCaseFactory } from '@main/factories/usecases/authenticationUseCaseFactory.ts'
 import { makeLoginValidation } from './loginValidationFactory'
