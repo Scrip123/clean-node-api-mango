@@ -1,6 +1,6 @@
 import { LoginController } from '@presentation/controllers/accounts/login/LoginController'
 import { IController } from '@presentation/protocols'
-import { makeAuthenticationUseCaseFactory } from '@main/factories/usecases/authenticationUseCaseFactory.ts'
+import { makeAuthenticationUseCaseFactory } from '@main/factories/usecases/factoriesAccountsUseCases/authenticationUseCaseFactory.ts'
 import { makeLoginValidation } from './loginValidationFactory'
 import { makeLogControllerDecorator } from '@main/factories/decorators/logControllerDecoratorFactory'
 
