@@ -1,6 +1,26 @@
 import { AddSurveyController } from './add-survey-controller'
 import { IHttpRequest, IValidation } from './add-survey-protocols'
 
+interface ISutTypes {
+  sut: AddSurveyController
+  validationStub: IValidation
+}
+const makeValidation = (): IValidation => {
+  class ValidationStub implements IValidation {
+    validate (input: any): Error {
+      return null
+    }
+  }
+  return new ValidationStub()
+}
+const makeSut = (): ISutTypes => {
+  const validationStub = makeValidation()
+  const sut = new AddSurveyController(validationStub)
+  return {
+    sut,
+    validationStub
+  }
+}
 const makeFakeRequest = (): IHttpRequest => ({
   body: {
     quation: 'any_value',
@@ -12,14 +32,8 @@ const makeFakeRequest = (): IHttpRequest => ({
 })
 describe('Add Survey Controller', () => {
   it('should calls validation with correct values', async () => {
-    class ValidationStub implements IValidation {
-      validate (input: any): Error {
-        return null
-      }
-    }
-    const validationStub = new ValidationStub()
+    const { sut, validationStub } = makeSut()
     const validationSpy = jest.spyOn(validationStub, 'validate')
-    const sut = new AddSurveyController(validationStub)
     const httpRequest = makeFakeRequest()
     await sut.handle(httpRequest)
     expect(validationSpy).toHaveBeenCalledWith(httpRequest.body)
