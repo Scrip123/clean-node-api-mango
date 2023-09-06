@@ -35,7 +35,7 @@ const makeSut = (): ISutTypes => {
 }
 const makeFakeRequest = (): IHttpRequest => ({
   body: {
-    quation: 'any_value',
+    question: 'any_value',
     answers: [{
       image: 'any_image',
       answer: 'any_value'

@@ -11,9 +11,9 @@ export class AddSurveyController implements IController {
     try {
       const error = this.validation.validate(httpRequest.body)
       if (error) return badRequest(error)
-      const { quation, answers } = httpRequest.body
+      const { question, answers } = httpRequest.body
       await this.addSurvey.add({
-        quation,
+        question,
         answers
       })
       return noContent()
