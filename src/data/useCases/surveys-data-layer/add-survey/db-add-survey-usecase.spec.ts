@@ -1,6 +1,27 @@
 import { IAddSurveyInputModelDTO, IAddSurveyRepository } from './db-add-survey-usecase'
 import { DbAddSurveyUseCase } from './db-add-survey-usecase-protocols'
 
+const makeSutAddSurvey = (): IAddSurveyRepository => {
+  class AddSurveyRepositoryStub implements IAddSurveyRepository {
+    async add (data: IAddSurveyInputModelDTO): Promise<void> {
+      return await new Promise(resolve => resolve())
+    }
+  }
+  return new AddSurveyRepositoryStub()
+}
+
+interface ISutTypes {
+  sut: DbAddSurveyUseCase
+  addSurveyRepositoryStub: IAddSurveyRepository
+}
+const makeSut = (): ISutTypes => {
+  const addSurveyRepositoryStub = makeSutAddSurvey()
+  const sut = new DbAddSurveyUseCase(addSurveyRepositoryStub)
+  return {
+    sut,
+    addSurveyRepositoryStub
+  }
+}
 const makeFakeSurveyData = (): IAddSurveyInputModelDTO => ({
   question: 'any_question',
   answers: [{
@@ -10,13 +31,7 @@ const makeFakeSurveyData = (): IAddSurveyInputModelDTO => ({
 })
 describe('DbAddSurvey UseCase', () => {
   it('Should calls AddSurveyRepository with correct values', async () => {
-    class AddSurveyRepositoryStub implements IAddSurveyRepository {
-      async add (data: IAddSurveyInputModelDTO): Promise<void> {
-        return await new Promise(resolve => resolve())
-      }
-    }
-    const addSurveyRepositoryStub = new AddSurveyRepositoryStub()
-    const sut = new DbAddSurveyUseCase(addSurveyRepositoryStub)
+    const { sut, addSurveyRepositoryStub } = makeSut()
     const addSpy = jest.spyOn(addSurveyRepositoryStub, 'add')
     await sut.add(makeFakeSurveyData())
     expect(addSpy).toHaveBeenCalledWith(makeFakeSurveyData())
