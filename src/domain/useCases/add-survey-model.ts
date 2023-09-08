@@ -3,7 +3,7 @@ export interface IAddSurveyInputModelDTO {
   answers: ISurveyAnswer[]
 }
 export interface ISurveyAnswer {
-  image: string
+  image?: string
   answer: string
 }
 export interface IAddSurvey {
