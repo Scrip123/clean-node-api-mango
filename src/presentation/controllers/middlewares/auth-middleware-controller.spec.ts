@@ -1,8 +1,7 @@
 import { AccessDeniedError } from '@presentation/errors/Access-denied-error'
 import { forBidden } from '@presentation/helpers/http/httpHelper'
-import { AuthMiddleware } from './auth-middleware'
-import { IAccountModelDataBase } from '../accounts/signUp/signUpProtocols'
-import { ILoadAccountByToken } from '@domain/useCases/middleware-domain-usecase/ILoad-account-by-token'
+import { AuthMiddleware } from './auth-middleware-controller'
+import { IAccountModelDataBase, ILoadAccountByToken } from './auth-middleware-controller-protocols'
 
 const makeFakeAccount = (): IAccountModelDataBase => ({
   id: 'valid_id',

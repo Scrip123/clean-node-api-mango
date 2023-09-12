@@ -1,8 +1,6 @@
-import { IMiddleware } from '@presentation/protocols/IMiddleware'
-import { IHttpRequest, IHttpResponse } from '../accounts/login/loginProtocols'
 import { AccessDeniedError } from '@presentation/errors/Access-denied-error'
 import { forBidden } from '@presentation/helpers/http/httpHelper'
-import { ILoadAccountByToken } from '@domain/useCases/middleware-domain-usecase/ILoad-account-by-token'
+import { IHttpRequest, IHttpResponse, ILoadAccountByToken, IMiddleware } from './auth-middleware-controller-protocols'
 
 export class AuthMiddleware implements IMiddleware {
   constructor (private readonly loadAccountByToken?: ILoadAccountByToken) {}
