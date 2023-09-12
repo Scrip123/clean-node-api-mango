@@ -2,7 +2,7 @@ import { AccessDeniedError } from '@presentation/errors/Access-denied-error'
 import { forBidden } from '@presentation/helpers/http/httpHelper'
 import { IHttpRequest, IHttpResponse, ILoadAccountByToken, IMiddleware } from './auth-middleware-controller-protocols'
 
-export class AuthMiddleware implements IMiddleware {
+export class AuthMiddlewareController implements IMiddleware {
   constructor (private readonly loadAccountByToken?: ILoadAccountByToken) {}
   async handle (httpRequest: IHttpRequest): Promise<IHttpResponse> {
     const accessToken = httpRequest.headers?.['x-access-token']

@@ -1,6 +1,6 @@
 import { AccessDeniedError } from '@presentation/errors/Access-denied-error'
 import { forBidden } from '@presentation/helpers/http/httpHelper'
-import { AuthMiddleware } from './auth-middleware-controller'
+import { AuthMiddlewareController } from './auth-middleware-controller'
 import { IAccountModelDataBase, ILoadAccountByToken } from './auth-middleware-controller-protocols'
 
 const makeFakeAccount = (): IAccountModelDataBase => ({
@@ -11,7 +11,7 @@ const makeFakeAccount = (): IAccountModelDataBase => ({
 })
 describe('Auth middleware', () => {
   it('Should return 403 if x-access-token no exists in headers', async () => {
-    const sut = new AuthMiddleware()
+    const sut = new AuthMiddlewareController()
     const httpResponse = await sut.handle({})
     expect(httpResponse).toEqual(forBidden(new AccessDeniedError()))
   })
@@ -23,7 +23,7 @@ describe('Auth middleware', () => {
       }
     }
     const loadAccountByTokenStub = new LoadAccountByTokenStub()
-    const sut = new AuthMiddleware(loadAccountByTokenStub)
+    const sut = new AuthMiddlewareController(loadAccountByTokenStub)
     const loadSpy = jest.spyOn(loadAccountByTokenStub, 'load')
     await sut.handle({
       headers: {
