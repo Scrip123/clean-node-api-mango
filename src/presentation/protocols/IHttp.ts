@@ -3,5 +3,6 @@ export interface IHttpResponse {
   body?: any
 }
 export interface IHttpRequest {
-  body: any
+  body?: any
+  headers?: any
 }
