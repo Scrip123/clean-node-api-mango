@@ -1,5 +1,5 @@
 import { AccessDeniedError } from '@presentation/errors/Access-denied-error'
-import { forBidden } from '@presentation/helpers/http/httpHelper'
+import { forBidden, ok } from '@presentation/helpers/http/httpHelper'
 import { AuthMiddlewareController } from './auth-middleware-controller'
 import { IAccountModelDataBase, IHttpRequest, ILoadAccountByToken } from './auth-middleware-controller-protocols'
 
@@ -54,5 +54,11 @@ describe('Auth middleware', () => {
       .mockReturnValueOnce(new Promise(resolve => resolve(null)))
     const httpResponse = await sut.handle({})
     expect(httpResponse).toEqual(forBidden(new AccessDeniedError()))
+  })
+
+  it('Should return 200 if LoadAccountByToken returns an account', async () => {
+    const { sut } = makeSut()
+    const httpResponse = await sut.handle(makeFakeRequest())
+    expect(httpResponse).toEqual(ok({ accountId: 'valid_id' }))
   })
 })
