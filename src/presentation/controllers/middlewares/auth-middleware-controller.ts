@@ -3,12 +3,16 @@ import { forBidden, ok, serverError } from '@presentation/helpers/http/httpHelpe
 import { IHttpRequest, IHttpResponse, ILoadAccountByToken, IMiddleware } from './auth-middleware-controller-protocols'
 
 export class AuthMiddlewareController implements IMiddleware {
-  constructor (private readonly loadAccountByToken?: ILoadAccountByToken) {}
+  constructor (
+    private readonly loadAccountByToken?: ILoadAccountByToken,
+    private readonly role?: string
+  ) {}
+
   async handle (httpRequest: IHttpRequest): Promise<IHttpResponse> {
     try {
       const accessToken = httpRequest.headers?.['x-access-token']
       if (accessToken) {
-        const account = await this.loadAccountByToken.load(accessToken)
+        const account = await this.loadAccountByToken.load(accessToken, this.role)
         if (account) return ok({ accountId: account.id })
       }
       return forBidden(new AccessDeniedError())
