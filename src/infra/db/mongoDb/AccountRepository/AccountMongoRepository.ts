@@ -4,11 +4,13 @@ import { IAddAccountRepository } from '@data/protocols/db/account/IAddAccountRep
 import { MongoHelper } from '../helpers/mongoHelper'
 import { ILoadAccountByEmailRepository } from '@data/protocols/db/account/ILoadAccountByEmailRepository'
 import { IUpdateAccessTokenRepository } from '@data/protocols/db/account/IUpdateAccessTokenRepository'
+import { ILoadAccountByTokenRepository } from '@data/protocols/db/account/ILoad-account-by-token-repository'
 
 export class AccountMongoRepository
 implements IAddAccountRepository,
 ILoadAccountByEmailRepository,
-IUpdateAccessTokenRepository {
+IUpdateAccessTokenRepository,
+ILoadAccountByTokenRepository {
   async add (account: IAddAccountModel): Promise<IAccountModelDataBase> {
     const accountColletction = await MongoHelper.getCollection('accounts')
     const result = await accountColletction.insertOne(account)
@@ -25,5 +27,14 @@ IUpdateAccessTokenRepository {
   async updateAccessToken (id: string, token: string): Promise<void> {
     const accountColletction = await MongoHelper.getCollection('accounts')
     await accountColletction.updateOne({ _id: id }, { $set: { accessToken: token } })
+  }
+
+  async loadAccountByToken (token: string, role?: string): Promise<IAccountModelDataBase> {
+    const accountColletction = await MongoHelper.getCollection('accounts')
+    const account = await accountColletction.findOne({
+      accessToken: token,
+      role
+    })
+    return account && MongoHelper.map(account)
   }
 }
