@@ -2,7 +2,7 @@ import { makeLoadAccountByTokenFactoryUsecase } from '@main/factories/usecases/d
 import { AuthMiddlewareController } from '@presentation/controllers/middlewares/auth-middleware-controller'
 import { IMiddleware } from '@presentation/protocols/IMiddleware'
 
-export const makeAuthMiddlewareFactoryController = (role: string): IMiddleware => {
+export const makeAuthMiddlewareFactoryController = (role?: string): IMiddleware => {
   return new AuthMiddlewareController(
     makeLoadAccountByTokenFactoryUsecase(),
     role
