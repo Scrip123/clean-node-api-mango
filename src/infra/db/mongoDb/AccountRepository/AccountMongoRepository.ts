@@ -33,7 +33,11 @@ ILoadAccountByTokenRepository {
     const accountColletction = await MongoHelper.getCollection('accounts')
     const account = await accountColletction.findOne({
       accessToken: token,
-      role
+      $or: [{
+        role
+      }, {
+        role: 'admin'
+      }]
     })
     return account && MongoHelper.map(account)
   }
