@@ -26,7 +26,8 @@ describe('Survey MongoDb Repository', () => {
         answer: 'any_answer'
       }, {
         answer: 'other_answer'
-      }]
+      }],
+      createdAt: new Date()
     })
     const survey = await surveysCollection.findOne({ question: 'any_question' })
     expect(survey).toBeTruthy()
