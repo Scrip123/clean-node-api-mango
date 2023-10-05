@@ -1,12 +1,5 @@
-export interface IAddSurveyInputModelDTO {
-  question: string
-  answers: ISurveyAnswer[]
-  createdAt: Date
-}
-export interface ISurveyAnswer {
-  image?: string
-  answer: string
-}
+import { IAddSurveyInputModelDTO } from '@domain/models/ISurvey-model-domain'
+
 export interface IAddSurvey {
   add: (data: IAddSurveyInputModelDTO) => Promise<void>
 }
