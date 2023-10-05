@@ -1,8 +1,8 @@
 import mockdate from 'mockdate'
 import { LoadSurveyController } from './Load-survey-controller'
-import { IAddSurveyOutputModelDTO, ILoadSurveyUseCaseDomain } from './load-survey-controller-protocols'
+import { ISurveyOutputModelDTO, ILoadSurveyUseCaseDomain } from './load-survey-controller-protocols'
 
-const makeFakeSurveyRequest = (): IAddSurveyOutputModelDTO[] => {
+const makeFakeSurveyRequest = (): ISurveyOutputModelDTO[] => {
   return [{
     id: 'any_id',
     question: 'any_value',
@@ -23,7 +23,7 @@ describe('LoadSurveys Controller', () => {
 
   it('Should calls LoadSurveys', async () => {
     class LoadSurveyStub implements ILoadSurveyUseCaseDomain {
-      async loadSurveys (): Promise<IAddSurveyOutputModelDTO[]> {
+      async loadSurveys (): Promise<ISurveyOutputModelDTO[]> {
         return await new Promise(resolve => resolve(makeFakeSurveyRequest()))
       }
     }

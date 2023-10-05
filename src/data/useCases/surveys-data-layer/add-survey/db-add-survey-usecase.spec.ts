@@ -1,10 +1,10 @@
 import mockdate from 'mockdate'
-import { IAddSurveyInputModelDTO, IAddSurveyRepository } from './db-add-survey-usecase'
+import { ISurveyInputModelDTO, IAddSurveyRepository } from './db-add-survey-usecase'
 import { DbAddSurveyUseCase } from './db-add-survey-usecase-protocols'
 
 const makeSutAddSurvey = (): IAddSurveyRepository => {
   class AddSurveyRepositoryStub implements IAddSurveyRepository {
-    async add (data: IAddSurveyInputModelDTO): Promise<void> {
+    async add (data: ISurveyInputModelDTO): Promise<void> {
       return await new Promise(resolve => resolve())
     }
   }
@@ -23,7 +23,7 @@ const makeSut = (): ISutTypes => {
     addSurveyRepositoryStub
   }
 }
-const makeFakeSurveyData = (): IAddSurveyInputModelDTO => ({
+const makeFakeSurveyData = (): ISurveyInputModelDTO => ({
   question: 'any_question',
   answers: [{
     image: 'any_image',
