@@ -13,6 +13,26 @@ const makeFakeSurveyRequest = (): ISurveyOutputModelDTO[] => {
     createdAt: new Date()
   }]
 }
+interface ISutTypes {
+  sut: LoadSurveyController
+  loadSurveyStub: ILoadSurveyUseCaseDomain
+}
+const makeLoadSurvey = (): ILoadSurveyUseCaseDomain => {
+  class LoadSurveyStub implements ILoadSurveyUseCaseDomain {
+    async loadSurveys (): Promise<ISurveyOutputModelDTO[]> {
+      return await new Promise(resolve => resolve(makeFakeSurveyRequest()))
+    }
+  }
+  return new LoadSurveyStub()
+}
+const makeSut = (): ISutTypes => {
+  const loadSurveyStub = makeLoadSurvey()
+  const sut = new LoadSurveyController(loadSurveyStub)
+  return {
+    sut,
+    loadSurveyStub
+  }
+}
 describe('LoadSurveys Controller', () => {
   beforeAll(() => {
     mockdate.set(new Date())
@@ -22,13 +42,7 @@ describe('LoadSurveys Controller', () => {
   })
 
   it('Should calls LoadSurveys', async () => {
-    class LoadSurveyStub implements ILoadSurveyUseCaseDomain {
-      async loadSurveys (): Promise<ISurveyOutputModelDTO[]> {
-        return await new Promise(resolve => resolve(makeFakeSurveyRequest()))
-      }
-    }
-    const loadSurveyStub = new LoadSurveyStub()
-    const sut = new LoadSurveyController(loadSurveyStub)
+    const { sut, loadSurveyStub } = makeSut()
     const loadSpy = jest.spyOn(loadSurveyStub, 'loadSurveys')
     await sut.handle({})
     expect(loadSpy).toHaveBeenCalled()
