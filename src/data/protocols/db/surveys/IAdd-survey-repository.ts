@@ -1,5 +1,5 @@
-import { IAddSurveyInputModelDTO } from '@domain/useCases/surveys-domain-usecases/add-survey-model'
+import { ISurveyInputModelDTO } from '@domain/models/ISurvey-model-domain'
 
 export interface IAddSurveyRepository {
-  add: (data: IAddSurveyInputModelDTO) => Promise<void>
+  add: (data: ISurveyInputModelDTO) => Promise<void>
 }
