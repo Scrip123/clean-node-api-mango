@@ -56,4 +56,12 @@ describe('Db LoadSurveys useCase', () => {
     const surveys = await sut.loadSurveys()
     expect(surveys).toEqual(makeFakeSurveysOutputData())
   })
+
+  it('Should throws if AddSurveyRepository throws', async () => {
+    const { sut, loadSurveysRepositoryStub } = makeSut()
+    jest.spyOn(loadSurveysRepositoryStub, 'loadAllSurveys')
+      .mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())))
+    const promise = sut.loadSurveys()
+    await expect(promise).rejects.toThrow()
+  })
 })
