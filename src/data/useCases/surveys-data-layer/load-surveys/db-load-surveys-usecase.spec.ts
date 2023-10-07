@@ -1,7 +1,6 @@
 import mockdate from 'mockdate'
-import { ILoadSurveysRepository } from '@data/protocols/db/surveys/ILoad-survey-repository'
-import { ISurveyOutputModelDTO } from '../add-survey/db-add-survey-usecase'
 import { DbLoadSurveysUseCase } from './Db-load-surveys-usecase'
+import { ILoadSurveysRepository, ISurveyOutputModelDTO } from './db-load-surveys-usecase-protocols'
 
 const makeLoadSurveysRepository = (): ILoadSurveysRepository => {
   class LoadSurveysRepositoryStub implements ILoadSurveysRepository {
