@@ -2,6 +2,27 @@ import { ILoadSurveysRepository } from '@data/protocols/db/surveys/ILoad-survey-
 import { ISurveyOutputModelDTO } from '../add-survey/db-add-survey-usecase'
 import { DbLoadSurveysUseCase } from './Db-load-surveys-usecase'
 
+const makeLoadSurveysRepository = (): ILoadSurveysRepository => {
+  class LoadSurveysRepositoryStub implements ILoadSurveysRepository {
+    async loadAllSurveys (): Promise<ISurveyOutputModelDTO[]> {
+      return await new Promise(resolve => resolve(makeFakeSurveyData()))
+    }
+  }
+  return new LoadSurveysRepositoryStub()
+}
+interface ISutTypes {
+  sut: DbLoadSurveysUseCase
+  loadSurveysRepositoryStub: ILoadSurveysRepository
+}
+const makeSut = (): ISutTypes => {
+  const loadSurveysRepositoryStub = makeLoadSurveysRepository()
+  const sut = new DbLoadSurveysUseCase(loadSurveysRepositoryStub)
+  return {
+    sut,
+    loadSurveysRepositoryStub
+  }
+}
+
 const makeFakeSurveyData = (): ISurveyOutputModelDTO [] => {
   return [
     {
@@ -17,14 +38,8 @@ const makeFakeSurveyData = (): ISurveyOutputModelDTO [] => {
 }
 describe('Db Load Surveys useCase', () => {
   it('Should call LoadSurveysRepository', async () => {
-    class LoadSurveysRepositoryStub implements ILoadSurveysRepository {
-      async loadAllSurveys (): Promise<ISurveyOutputModelDTO[]> {
-        return await new Promise(resolve => resolve(makeFakeSurveyData()))
-      }
-    }
-    const loadSurveysRepositoryStub = new LoadSurveysRepositoryStub()
+    const { sut, loadSurveysRepositoryStub } = makeSut()
     const loadSpy = jest.spyOn(loadSurveysRepositoryStub, 'loadAllSurveys')
-    const sut = new DbLoadSurveysUseCase(loadSurveysRepositoryStub)
     await sut.loadSurveys()
     expect(loadSpy).toHaveBeenCalled()
   })
