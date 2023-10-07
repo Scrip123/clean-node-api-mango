@@ -5,7 +5,7 @@ import { ILoadSurveysRepository } from '@data/protocols/db/surveys/ILoad-survey-
 export class DbLoadSurveysUseCase implements ILoadSurveyUseCaseDomain {
   constructor (private readonly loadSurveysRepository: ILoadSurveysRepository) {}
   async loadSurveys (): Promise<ISurveyOutputModelDTO[]> {
-    await this.loadSurveysRepository.loadAllSurveys()
-    return []
+    const surveys = await this.loadSurveysRepository.loadAllSurveys()
+    return surveys
   }
 }
