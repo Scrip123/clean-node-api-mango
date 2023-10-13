@@ -1,3 +1,4 @@
+import mockdate from 'mockdate'
 import { MongoHelper } from '../helpers/mongoHelper'
 import { SurveyMongoRepository } from './surveys-mongo-repository'
 import { Collection } from 'mongodb'
@@ -9,9 +10,11 @@ const makeSut = (): SurveyMongoRepository => {
 describe('Survey MongoDb Repository', () => {
   beforeAll(async () => {
     await MongoHelper.connect(process.env.MONGO_URL)
+    mockdate.set(new Date())
   })
   afterAll(async () => {
     await MongoHelper.desconnect()
+    mockdate.reset()
   })
   beforeEach(async () => {
     surveysCollection = await MongoHelper.getCollection('surveys')

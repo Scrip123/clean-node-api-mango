@@ -4,7 +4,7 @@ import { IHttpRequest, IHttpResponse, ILoadAccountByToken, IMiddleware } from '.
 
 export class AuthMiddlewareController implements IMiddleware {
   constructor (
-    private readonly loadAccountByToken?: ILoadAccountByToken,
+    private readonly loadAccountByToken: ILoadAccountByToken,
     private readonly role?: string
   ) {}
 
