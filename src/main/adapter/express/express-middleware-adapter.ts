@@ -1,10 +1,10 @@
-import { IHttpRequest } from '@presentation/protocols'
+import { TypesHttpRequest } from '@presentation/protocols'
 import { IMiddleware } from '@presentation/protocols/IMiddleware'
 import { NextFunction, Request, Response } from 'express'
 
 export const adapteMiddleware = (middleware: IMiddleware) => {
   return async (request: Request, response: Response, next: NextFunction) => {
-    const httpRequest: IHttpRequest = {
+    const httpRequest: TypesHttpRequest = {
       headers: request.headers
     }
     const httResponse = await middleware.handle(httpRequest)

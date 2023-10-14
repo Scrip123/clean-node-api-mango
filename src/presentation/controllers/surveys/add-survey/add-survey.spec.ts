@@ -1,7 +1,7 @@
 import mockdate from 'mockdate'
 import { badRequest, noContent, serverError } from '@presentation/helpers/http/httpHelper'
 import { AddSurveyController } from './add-survey-controller'
-import { IAddSurvey, ISurveyInputModelDTO, IHttpRequest, IValidation } from './add-survey-protocols'
+import { IAddSurvey, TypesSurveyInputModelDTO, TypesHttpRequest, IValidation } from './add-survey-protocols'
 
 const makeValidation = (): IValidation => {
   class ValidationStub implements IValidation {
@@ -13,18 +13,18 @@ const makeValidation = (): IValidation => {
 }
 const makeAddSurvey = (): IAddSurvey => {
   class AddSurveyStub implements IAddSurvey {
-    async add (data: ISurveyInputModelDTO): Promise<void> {
+    async add (data: TypesSurveyInputModelDTO): Promise<void> {
       return await new Promise(resolve => resolve())
     }
   }
   return new AddSurveyStub()
 }
-interface ISutTypes {
+type SutTypes = {
   sut: AddSurveyController
   validationStub: IValidation
   addSurveyStub: IAddSurvey
 }
-const makeSut = (): ISutTypes => {
+const makeSut = (): SutTypes => {
   const validationStub = makeValidation()
   const addSurveyStub = makeAddSurvey()
   const sut = new AddSurveyController(validationStub, addSurveyStub)
@@ -34,7 +34,7 @@ const makeSut = (): ISutTypes => {
     addSurveyStub
   }
 }
-const makeFakeRequest = (): IHttpRequest => ({
+const makeFakeRequest = (): TypesHttpRequest => ({
   body: {
     question: 'any_value',
     answers: [{

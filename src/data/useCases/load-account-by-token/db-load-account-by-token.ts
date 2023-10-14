@@ -1,5 +1,5 @@
 import { ILoadAccountByToken } from '@domain/useCases/middleware-domain-usecase/ILoad-account-by-token'
-import { IAccountModelDataBase } from '../accountsUseCases/addAccount/dbAddAccountProtocols'
+import { TypeAccountModelDataBase } from '../accountsUseCases/addAccount/dbAddAccountProtocols'
 import { IDecrypter } from '@data/protocols/cryptografy/IDecrypter'
 import { ILoadAccountByTokenRepository } from '@data/protocols/db/account/ILoad-account-by-token-repository'
 
@@ -9,7 +9,7 @@ export class DbLoadAccountByToken implements ILoadAccountByToken {
     private readonly loadAccountByTokenRepository: ILoadAccountByTokenRepository
   ) {}
 
-  async load (accessToken: string, role?: string): Promise<IAccountModelDataBase> {
+  async load (accessToken: string, role?: string): Promise<TypeAccountModelDataBase> {
     const token = await this.decrypter.decrypt(accessToken)
     if (token) {
       const account = await this.loadAccountByTokenRepository.loadAccountByToken(accessToken, role)

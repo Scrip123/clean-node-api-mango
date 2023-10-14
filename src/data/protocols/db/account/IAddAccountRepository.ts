@@ -1,6 +1,6 @@
-import { IAccountModelDataBase } from '@domain/models/IAccountModel'
-import { IAddAccountModel } from '@domain/useCases/accountsDomainUseCases/IAddAcount'
+import { TypeAccountModelDataBase } from '@domain/models/IAccountModel'
+import { TypesAddAccountModel } from '@domain/useCases/accountsDomainUseCases/IAddAcount'
 
 export interface IAddAccountRepository {
-  add: (account: IAddAccountModel) => Promise<IAccountModelDataBase>
+  add: (account: TypesAddAccountModel) => Promise<TypeAccountModelDataBase>
 }

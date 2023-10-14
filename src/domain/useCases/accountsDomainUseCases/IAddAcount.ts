@@ -1,9 +1,9 @@
-import { IAccountModelDataBase } from '@domain/models/IAccountModel'
-export interface IAddAccountModel {
+import { TypeAccountModelDataBase } from '@domain/models/IAccountModel'
+export type TypesAddAccountModel = {
   name: string
   email: string
   password: string
 }
 export interface IAddAccount {
-  add: (account: IAddAccountModel) => Promise<IAccountModelDataBase>
+  add: (account: TypesAddAccountModel) => Promise<TypeAccountModelDataBase>
 }

@@ -1,20 +1,20 @@
 import mockdate from 'mockdate'
 import { DbLoadSurveysUseCase } from './Db-load-surveys-usecase'
-import { ILoadSurveysRepository, ISurveyOutputModelDTO } from './db-load-surveys-usecase-protocols'
+import { ILoadSurveysRepository, TypesSurveyOutputModelDTO } from './db-load-surveys-usecase-protocols'
 
 const makeLoadSurveysRepository = (): ILoadSurveysRepository => {
   class LoadSurveysRepositoryStub implements ILoadSurveysRepository {
-    async loadAllSurveys (): Promise<ISurveyOutputModelDTO[]> {
+    async loadAllSurveys (): Promise<TypesSurveyOutputModelDTO[]> {
       return await new Promise(resolve => resolve(makeFakeSurveysOutputData()))
     }
   }
   return new LoadSurveysRepositoryStub()
 }
-interface ISutTypes {
+type SutTypes = {
   sut: DbLoadSurveysUseCase
   loadSurveysRepositoryStub: ILoadSurveysRepository
 }
-const makeSut = (): ISutTypes => {
+const makeSut = (): SutTypes => {
   const loadSurveysRepositoryStub = makeLoadSurveysRepository()
   const sut = new DbLoadSurveysUseCase(loadSurveysRepositoryStub)
   return {
@@ -23,7 +23,7 @@ const makeSut = (): ISutTypes => {
   }
 }
 
-const makeFakeSurveysOutputData = (): ISurveyOutputModelDTO [] => {
+const makeFakeSurveysOutputData = (): TypesSurveyOutputModelDTO [] => {
   return [
     {
       id: 'any_id',

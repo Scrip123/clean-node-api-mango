@@ -2,13 +2,13 @@ import { SignUpController } from './SignUpController'
 import { MissingParamError, ServerError } from '@presentation/errors'
 import {
   IEmailValidator,
-  IAccountModelDataBase,
+  TypeAccountModelDataBase,
   IAddAccount,
-  IAddAccountModel,
-  IHttpRequest,
+  TypesAddAccountModel,
+  TypesHttpRequest,
   IValidation,
   IAuthentication,
-  IAuthenticationModel
+  TypesAuthenticationModel
 }
   from './signUpProtocols'
 import { ok, badRequest, serverError, forBidden } from '@presentation/helpers/http/httpHelper'
@@ -24,7 +24,7 @@ const makeEmailValidator = (): IEmailValidator => {
 }
 const makeAddAccount = (): IAddAccount => {
   class AddAccountStub implements IAddAccount {
-    async add (account: IAddAccountModel): Promise<IAccountModelDataBase> {
+    async add (account: TypesAddAccountModel): Promise<TypeAccountModelDataBase> {
       return await new Promise(resolve => { resolve(makeFakeAccount()) })
     }
   }
@@ -40,21 +40,21 @@ const makeValidation = (): IValidation => {
 }
 const makeAuthentication = (): IAuthentication => {
   class AuthenticationStub implements IAuthentication {
-    async auth (authentication: IAuthenticationModel): Promise<string> {
+    async auth (authentication: TypesAuthenticationModel): Promise<string> {
       return await new Promise(resolve => resolve('any_token'))
     }
   }
   return new AuthenticationStub()
 }
 
-interface ISutTypes {
+type SutTypes = {
   sut: SignUpController
   emailValidatorStub: IEmailValidator
   addAccountStub: IAddAccount
   validationStub: IValidation
   authenticationStub: IAuthentication
 }
-const makeSut = (): ISutTypes => {
+const makeSut = (): SutTypes => {
   const emailValidatorStub = makeEmailValidator()
   const addAccountStub = makeAddAccount()
   const validationStub = makeValidation()
@@ -68,7 +68,7 @@ const makeSut = (): ISutTypes => {
     authenticationStub
   }
 }
-const makeFakeRequest = (): IHttpRequest => ({
+const makeFakeRequest = (): TypesHttpRequest => ({
   body: {
     name: 'any_name',
     email: 'any_email@gmail.com',
@@ -76,7 +76,7 @@ const makeFakeRequest = (): IHttpRequest => ({
     passwordConfirmation: 'any_password'
   }
 })
-const makeFakeAccount = (): IAccountModelDataBase => ({
+const makeFakeAccount = (): TypeAccountModelDataBase => ({
   id: 'valid_id',
   name: 'valid_name',
   email: 'valid_email@gmail.com',

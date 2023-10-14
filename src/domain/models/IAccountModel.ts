@@ -1,4 +1,4 @@
-export interface IAccountModelDataBase {
+export type TypeAccountModelDataBase = {
   id: string
   name: string
   email: string

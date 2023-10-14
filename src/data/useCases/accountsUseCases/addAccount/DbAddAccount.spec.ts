@@ -1,11 +1,11 @@
-import { IAccountModelDataBase, IAddAccountModel, ILoadAccountByEmailRepository } from './dbAddAccountProtocols'
+import { TypeAccountModelDataBase, TypesAddAccountModel, ILoadAccountByEmailRepository } from './dbAddAccountProtocols'
 import { DbAddAcount } from './DbAddAccount'
 import { IAddAccountRepository } from '@data/protocols/db/account/IAddAccountRepository'
 import { IHasher } from '@data/protocols/cryptografy/IHasher'
 
 const makeAddAccountRepository = (): IAddAccountRepository => {
   class AddAccountRepositoryStub implements IAddAccountRepository {
-    async add (account: IAddAccountModel): Promise<IAccountModelDataBase> {
+    async add (account: TypesAddAccountModel): Promise<TypeAccountModelDataBase> {
       return makeFakeAccount()
     }
   }
@@ -22,20 +22,20 @@ const makeEncrypter = (): IHasher => {
 
 const makeLoadAccountByEmailRepository = (): ILoadAccountByEmailRepository => {
   class LoadAccountByEmailRepositoryStub implements ILoadAccountByEmailRepository {
-    async loadAccountByEmail (email: string): Promise<IAccountModelDataBase> {
+    async loadAccountByEmail (email: string): Promise<TypeAccountModelDataBase> {
       return await new Promise(resolve => resolve(null))
     }
   }
   return new LoadAccountByEmailRepositoryStub()
 }
 
-interface ISutTypes {
+type SutTypes = {
   sut: DbAddAcount
   encryptStub: IHasher
   addAccountRepositoryStub: IAddAccountRepository
   loadAccountByEmailRepositoryStub: ILoadAccountByEmailRepository
 }
-const makeSut = (): ISutTypes => {
+const makeSut = (): SutTypes => {
   const encryptStub = makeEncrypter()
   const addAccountRepositoryStub = makeAddAccountRepository()
   const loadAccountByEmailRepositoryStub = makeLoadAccountByEmailRepository()
@@ -48,13 +48,13 @@ const makeSut = (): ISutTypes => {
     loadAccountByEmailRepositoryStub
   }
 }
-const makeFakeAccount = (): IAccountModelDataBase => ({
+const makeFakeAccount = (): TypeAccountModelDataBase => ({
   id: 'valid_id',
   name: 'valid_name',
   email: 'valid_email',
   password: 'hashed_password'
 })
-const makeFakeAccountData = (): IAddAccountModel => ({
+const makeFakeAccountData = (): TypesAddAccountModel => ({
   name: 'valid_name',
   email: 'valid_email@gmail.com',
   password: 'valid_password'

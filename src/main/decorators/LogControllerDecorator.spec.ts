@@ -1,12 +1,12 @@
-import { IController, IHttpRequest, IHttpResponse } from '@presentation/protocols'
+import { IController, TypesHttpRequest, TypesHttpResponse } from '@presentation/protocols'
 import { LogControllerDecorator } from './LogControllerDecorator'
 import { ok, serverError } from '@presentation/helpers/http/httpHelper'
 import { ILogErrorRepository } from '@data/protocols/db/log/ILogErrorRepository'
-import { IAccountModelDataBase } from '@domain/models/IAccountModel'
+import { TypeAccountModelDataBase } from '@domain/models/IAccountModel'
 
 const makeController = (): IController => {
   class ControllerStub implements IController {
-    async handle (httpRequest: IHttpRequest): Promise<IHttpResponse> {
+    async handle (httpRequest: TypesHttpRequest): Promise<TypesHttpResponse> {
       return await new Promise(resolve => resolve(ok(makeFakeAccount())))
     }
   }
@@ -20,12 +20,12 @@ const makeLogErrorRepository = (): ILogErrorRepository => {
   }
   return new LogErrorRepositoryStub()
 }
-interface ISutTypes {
+type SutTypes = {
   sut: LogControllerDecorator
   controllerStub: IController
   logErrorRepositoryStub: ILogErrorRepository
 }
-const makeSut = (): ISutTypes => {
+const makeSut = (): SutTypes => {
   const controllerStub = makeController()
   const logErrorRepositoryStub = makeLogErrorRepository()
   const sut = new LogControllerDecorator(controllerStub, logErrorRepositoryStub)
@@ -37,7 +37,7 @@ const makeSut = (): ISutTypes => {
   }
 }
 
-const makeFakeRequest = (): IHttpRequest => ({
+const makeFakeRequest = (): TypesHttpRequest => ({
   body: {
     name: 'any_name',
     email: 'any_email@gmail.com',
@@ -45,14 +45,14 @@ const makeFakeRequest = (): IHttpRequest => ({
     passwordConfirmation: 'any_password'
   }
 })
-const makeFakeAccount = (): IAccountModelDataBase => (
+const makeFakeAccount = (): TypeAccountModelDataBase => (
   {
     id: 'valid_id',
     name: 'valid_name',
     email: 'valid_email@gmail.com',
     password: 'valid_password'
   })
-const makeServerError = (): IHttpResponse => {
+const makeServerError = (): TypesHttpResponse => {
   const fakeError = new Error()
   fakeError.stack = 'any_stack'
   return serverError(fakeError)

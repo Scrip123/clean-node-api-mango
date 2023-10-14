@@ -1,30 +1,30 @@
 import { ServerError, UnAuthorizedError } from '@presentation/errors'
-import { IHttpResponse } from '@presentation/protocols/IHttp'
+import { TypesHttpResponse } from '@presentation/protocols/IHttp'
 
-export const badRequest = (error: Error): IHttpResponse => ({
+export const badRequest = (error: Error): TypesHttpResponse => ({
   statusCode: 400,
   body: error
 })
-export const forBidden = (error: Error): IHttpResponse => ({
+export const forBidden = (error: Error): TypesHttpResponse => ({
   statusCode: 403,
   body: error
 })
-export const unAuthorized = (): IHttpResponse => ({
+export const unAuthorized = (): TypesHttpResponse => ({
   statusCode: 401,
   body: new UnAuthorizedError()
 })
 
-export const serverError = (error: Error): IHttpResponse => ({
+export const serverError = (error: Error): TypesHttpResponse => ({
   statusCode: 500,
   body: new ServerError(error.stack)
 })
 
-export const ok = (data: any): IHttpResponse => ({
+export const ok = (data: any): TypesHttpResponse => ({
   statusCode: 200,
   body: data
 })
 
-export const noContent = (): IHttpResponse => ({
+export const noContent = (): TypesHttpResponse => ({
   statusCode: 204,
   body: null
 })

@@ -1,21 +1,21 @@
 import { AccessDeniedError } from '@presentation/errors/Access-denied-error'
 import { forBidden, ok, serverError } from '@presentation/helpers/http/httpHelper'
 import { AuthMiddlewareController } from './auth-middleware-controller'
-import { IAccountModelDataBase, IHttpRequest, ILoadAccountByToken } from './auth-middleware-controller-protocols'
+import { TypeAccountModelDataBase, TypesHttpRequest, ILoadAccountByToken } from './auth-middleware-controller-protocols'
 
-interface ISutTypes {
+type SutTypes = {
   sut: AuthMiddlewareController
   loadAccountByTokenStub: ILoadAccountByToken
 }
 const makeLoadAccountByToken = (): ILoadAccountByToken => {
   class LoadAccountByTokenStub implements ILoadAccountByToken {
-    async load (accessToken: string, role?: string): Promise<IAccountModelDataBase> {
+    async load (accessToken: string, role?: string): Promise<TypeAccountModelDataBase> {
       return await new Promise(resolve => resolve(makeFakeAccount()))
     }
   }
   return new LoadAccountByTokenStub()
 }
-const makeSut = (role?: string): ISutTypes => {
+const makeSut = (role?: string): SutTypes => {
   const loadAccountByTokenStub = makeLoadAccountByToken()
   const sut = new AuthMiddlewareController(loadAccountByTokenStub, role)
   return {
@@ -23,13 +23,13 @@ const makeSut = (role?: string): ISutTypes => {
     loadAccountByTokenStub
   }
 }
-const makeFakeAccount = (): IAccountModelDataBase => ({
+const makeFakeAccount = (): TypeAccountModelDataBase => ({
   id: 'valid_id',
   name: 'valid_name',
   email: 'valid_email@gmail.com',
   password: 'valid_password'
 })
-const makeFakeRequest = (): IHttpRequest => ({
+const makeFakeRequest = (): TypesHttpRequest => ({
   headers: {
     'x-access-token': 'any_token'
   }

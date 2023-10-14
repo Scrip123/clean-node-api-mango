@@ -2,13 +2,13 @@ export interface ISurveyAnswer {
   image?: string
   answer: string
 }
-export interface ISurveyInputModelDTO {
+export type TypesSurveyInputModelDTO = {
   question: string
   answers: ISurveyAnswer[]
   createdAt: Date
 }
 
-export interface ISurveyOutputModelDTO {
+export type TypesSurveyOutputModelDTO = {
   id: string
   question: string
   answers: ISurveyAnswer[]

@@ -1,9 +1,9 @@
 import { MissingParamError } from '@presentation/errors'
 import { badRequest, ok, serverError, unAuthorized } from '@presentation/helpers/http/httpHelper'
 import { LoginController } from './LoginController'
-import { IHttpRequest, IAuthentication, IValidation, IAuthenticationModel } from './loginProtocols'
+import { TypesHttpRequest, IAuthentication, IValidation, TypesAuthenticationModel } from './loginProtocols'
 
-interface ISutTypes {
+type SutTypes = {
   sut: LoginController
   authenticationStub: IAuthentication
   validationStub: IValidation
@@ -11,7 +11,7 @@ interface ISutTypes {
 
 const makeAuthentication = (): IAuthentication => {
   class AuthenticationStub implements IAuthentication {
-    async auth (authentication: IAuthenticationModel): Promise<string> {
+    async auth (authentication: TypesAuthenticationModel): Promise<string> {
       return await new Promise(resolve => resolve('any_token'))
     }
   }
@@ -25,7 +25,7 @@ const makeValidation = (): IValidation => {
   }
   return new ValidationStub()
 }
-const makeSut = (): ISutTypes => {
+const makeSut = (): SutTypes => {
   const authenticationStub = makeAuthentication()
   const validationStub = makeValidation()
   const sut = new LoginController(authenticationStub, validationStub)
@@ -35,7 +35,7 @@ const makeSut = (): ISutTypes => {
     validationStub
   }
 }
-const makeFakeRequest = (): IHttpRequest => ({
+const makeFakeRequest = (): TypesHttpRequest => ({
   body: {
     email: 'any_email@gmail.com',
     password: 'any_password'

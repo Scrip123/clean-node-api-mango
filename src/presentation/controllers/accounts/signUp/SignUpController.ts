@@ -1,5 +1,5 @@
 import { badRequest, serverError, ok, forBidden } from '@presentation/helpers/http/httpHelper'
-import { IHttpRequest, IHttpResponse, IController, IAddAccount, IValidation, IAuthentication }
+import { TypesHttpRequest, TypesHttpResponse, IController, IAddAccount, IValidation, IAuthentication }
   from './signUpProtocols'
 import { EmailInUseError } from '@presentation/errors/EmailInUseError'
 
@@ -10,7 +10,7 @@ export class SignUpController implements IController {
     private readonly authentication: IAuthentication
   ) {}
 
-  async handle (httpRequest: IHttpRequest): Promise<IHttpResponse> {
+  async handle (httpRequest: TypesHttpRequest): Promise<TypesHttpResponse> {
     try {
       const error = this.validation.validate(httpRequest.body)
       if (error) return badRequest(error)

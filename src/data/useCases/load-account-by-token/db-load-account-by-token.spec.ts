@@ -1,9 +1,9 @@
 import { IDecrypter } from '@data/protocols/cryptografy/IDecrypter'
 import { DbLoadAccountByToken } from './db-load-account-by-token'
 import { ILoadAccountByTokenRepository } from '@data/protocols/db/account/ILoad-account-by-token-repository'
-import { IAccountModelDataBase } from '../accountsUseCases/addAccount/dbAddAccountProtocols'
+import { TypeAccountModelDataBase } from '../accountsUseCases/addAccount/dbAddAccountProtocols'
 
-const makeFakeAccount = (): IAccountModelDataBase => ({
+const makeFakeAccount = (): TypeAccountModelDataBase => ({
   id: 'valid_id',
   name: 'valid_name',
   email: 'valid_email',
@@ -19,18 +19,18 @@ const makeDecrypter = (): IDecrypter => {
 }
 const makeLoadAccountByTokenRepository = (): ILoadAccountByTokenRepository => {
   class LoadAccountByTokenRepository implements ILoadAccountByTokenRepository {
-    async loadAccountByToken (token: string, role?: string): Promise<IAccountModelDataBase> {
+    async loadAccountByToken (token: string, role?: string): Promise<TypeAccountModelDataBase> {
       return await new Promise(resolve => resolve(makeFakeAccount()))
     }
   }
   return new LoadAccountByTokenRepository()
 }
-interface ISutTypes {
+type SutTypes = {
   sut: DbLoadAccountByToken
   decrypterStub: IDecrypter
   loadAccountByTokenRepository: ILoadAccountByTokenRepository
 }
-const makeSut = (): ISutTypes => {
+const makeSut = (): SutTypes => {
   const decrypterStub = makeDecrypter()
   const loadAccountByTokenRepository = makeLoadAccountByTokenRepository()
   const sut = new DbLoadAccountByToken(decrypterStub, loadAccountByTokenRepository)

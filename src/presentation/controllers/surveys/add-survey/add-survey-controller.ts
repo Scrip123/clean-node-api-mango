@@ -1,5 +1,5 @@
 import { badRequest, noContent, serverError } from '@presentation/helpers/http/httpHelper'
-import { IAddSurvey, IController, IHttpRequest, IHttpResponse, IValidation } from './add-survey-protocols'
+import { IAddSurvey, IController, TypesHttpRequest, TypesHttpResponse, IValidation } from './add-survey-protocols'
 
 export class AddSurveyController implements IController {
   constructor (
@@ -7,7 +7,7 @@ export class AddSurveyController implements IController {
     private readonly addSurvey: IAddSurvey
   ) {}
 
-  async handle (httpRequest: IHttpRequest): Promise<IHttpResponse> {
+  async handle (httpRequest: TypesHttpRequest): Promise<TypesHttpResponse> {
     try {
       const error = this.validation.validate(httpRequest.body)
       if (error) return badRequest(error)

@@ -1,6 +1,6 @@
 import { AccessDeniedError } from '@presentation/errors/Access-denied-error'
 import { forBidden, ok, serverError } from '@presentation/helpers/http/httpHelper'
-import { IHttpRequest, IHttpResponse, ILoadAccountByToken, IMiddleware } from './auth-middleware-controller-protocols'
+import { TypesHttpRequest, TypesHttpResponse, ILoadAccountByToken, IMiddleware } from './auth-middleware-controller-protocols'
 
 export class AuthMiddlewareController implements IMiddleware {
   constructor (
@@ -8,7 +8,7 @@ export class AuthMiddlewareController implements IMiddleware {
     private readonly role?: string
   ) {}
 
-  async handle (httpRequest: IHttpRequest): Promise<IHttpResponse> {
+  async handle (httpRequest: TypesHttpRequest): Promise<TypesHttpResponse> {
     try {
       const accessToken = httpRequest.headers?.['x-access-token']
       if (accessToken) {

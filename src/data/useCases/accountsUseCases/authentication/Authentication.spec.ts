@@ -1,14 +1,14 @@
-import { IAuthenticationModel } from '@domain/useCases/accountsDomainUseCases/IAuthentication'
+import { TypesAuthenticationModel } from '@domain/useCases/accountsDomainUseCases/IAuthentication'
 import { AuthenticationUseCase } from './Authentication'
 import {
-  IAccountModelDataBase,
+  TypeAccountModelDataBase,
   IEncrypterToken,
   IHashCompare,
   ILoadAccountByEmailRepository,
   IUpdateAccessTokenRepository
 } from './authenticationProtocols'
 
-const makeFakeAccount = (): IAccountModelDataBase => ({
+const makeFakeAccount = (): TypeAccountModelDataBase => ({
   id: 'any_id',
   name: 'any_name',
   email: 'any_email@gmail.com',
@@ -16,7 +16,7 @@ const makeFakeAccount = (): IAccountModelDataBase => ({
 })
 const makeLoadAccountByEmailRepository = (): ILoadAccountByEmailRepository => {
   class LoadAccountByEmailRepositoryStub implements ILoadAccountByEmailRepository {
-    async loadAccountByEmail (email: string): Promise<IAccountModelDataBase> {
+    async loadAccountByEmail (email: string): Promise<TypeAccountModelDataBase> {
       return await new Promise(resolve => resolve(makeFakeAccount()))
     }
   }
@@ -47,14 +47,14 @@ const makeUpdateAccessTokenRepository = (): IUpdateAccessTokenRepository => {
   }
   return new UpdateTokenRepositoryStub()
 }
-interface ISutTypes {
+type SutTypes = {
   sut: AuthenticationUseCase
   loadAccountByEmailRepositoryStub: ILoadAccountByEmailRepository
   hashCompareStub: IHashCompare
   encrypterTokenStub: IEncrypterToken
   updateTokenRepositoryStub: IUpdateAccessTokenRepository
 }
-const makeSut = (): ISutTypes => {
+const makeSut = (): SutTypes => {
   const loadAccountByEmailRepositoryStub = makeLoadAccountByEmailRepository()
   const hashCompareStub = makeHahsComapre()
   const encrypterTokenStub = makeEncrypterToken()
@@ -73,7 +73,7 @@ const makeSut = (): ISutTypes => {
     updateTokenRepositoryStub
   }
 }
-const makeFakeAuthentication = (): IAuthenticationModel => ({
+const makeFakeAuthentication = (): TypesAuthenticationModel => ({
   email: 'any_email@gmail.com',
   password: 'any_password'
 })

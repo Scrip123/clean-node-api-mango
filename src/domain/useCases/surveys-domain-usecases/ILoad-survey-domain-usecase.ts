@@ -1,5 +1,5 @@
-import { ISurveyOutputModelDTO } from '@domain/models/ISurvey-model-domain'
+import { TypesSurveyOutputModelDTO } from '@domain/models/ISurvey-model-domain'
 
 export interface ILoadSurveyUseCaseDomain {
-  loadSurveys: () => Promise<ISurveyOutputModelDTO[]>
+  loadSurveys: () => Promise<TypesSurveyOutputModelDTO[]>
 }
