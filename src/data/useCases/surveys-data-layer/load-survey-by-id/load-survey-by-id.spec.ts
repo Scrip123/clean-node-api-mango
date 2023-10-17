@@ -52,4 +52,9 @@ describe('Load Survey By Id', () => {
     const survey = await sut.loadSurveyById('any_id')
     expect(survey).toBeNull()
   })
+  it('Should return survey on success', async () => {
+    const { sut } = makeSut()
+    const survey = await sut.loadSurveyById('any_id')
+    expect(survey).toEqual(makeFakeSurveyData())
+  })
 })
