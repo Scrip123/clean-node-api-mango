@@ -1,6 +1,4 @@
-import { ILoadSurveyByIdDomain } from '@domain/useCases/surveys-domain-usecases/ILoad-survey-by-id'
-import { TypesSurveyOutputModelDTO } from '../add-survey/db-add-survey-usecase'
-import { ILoadSurveyByIdRepository } from '@data/protocols/db/surveys/ILoad-survey-by-id-repository'
+import { ILoadSurveyByIdDomain, ILoadSurveyByIdRepository, TypesSurveyOutputModelDTO } from './load-survey-by-id-usecase-protocols'
 
 export class DbLoadSurveyByIdUseCase implements ILoadSurveyByIdDomain {
   constructor (private readonly loadSurveyByIdRepository: ILoadSurveyByIdRepository) {}

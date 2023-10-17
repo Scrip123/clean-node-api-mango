@@ -1,7 +1,6 @@
 import mockdate from 'mockdate'
-import { ILoadSurveyByIdRepository } from '@data/protocols/db/surveys/ILoad-survey-by-id-repository'
-import { TypesSurveyOutputModelDTO } from '../add-survey/db-add-survey-usecase'
-import { DbLoadSurveyByIdUseCase } from './Load-survey-by-id'
+import { DbLoadSurveyByIdUseCase } from './Load-survey-by-id-usecase'
+import { ILoadSurveyByIdRepository, TypesSurveyOutputModelDTO } from './load-survey-by-id-usecase-protocols'
 
 const makeFakeSurveyData = (): TypesSurveyOutputModelDTO => ({
   id: 'any_id',
