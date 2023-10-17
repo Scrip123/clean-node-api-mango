@@ -7,5 +7,6 @@ export class DbLoadSurveyByIdUseCase implements ILoadSurveyByIdDomain {
   async loadSurveyById (id: string): Promise<TypesSurveyOutputModelDTO> {
     const survey = await this.loadSurveyByIdRepository.loadById(id)
     if (!survey) return null
+    return survey
   }
 }
