@@ -39,10 +39,17 @@ describe('Load Survey By Id', () => {
   afterAll(() => {
     mockdate.reset()
   })
-  it('Should call LoadSurveyById with correct values', async () => {
+  it('Should call LoadSurveyByIdRepository with correct values', async () => {
     const { sut, loadSurveyByIdStub } = makeSut()
     const loadSpy = jest.spyOn(loadSurveyByIdStub, 'loadById')
     await sut.loadSurveyById('any_id')
     expect(loadSpy).toHaveBeenCalled()
+  })
+  it('Should return null if LoadSurveyByIdRepository has not exist', async () => {
+    const { sut, loadSurveyByIdStub } = makeSut()
+    jest.spyOn(loadSurveyByIdStub, 'loadById')
+      .mockReturnValueOnce(new Promise(resolve => resolve(null)))
+    const survey = await sut.loadSurveyById('any_id')
+    expect(survey).toBeNull()
   })
 })
