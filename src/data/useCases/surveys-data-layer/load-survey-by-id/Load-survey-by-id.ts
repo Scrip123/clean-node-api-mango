@@ -5,7 +5,7 @@ import { ILoadSurveyByIdRepository } from '@data/protocols/db/surveys/ILoad-surv
 export class DbLoadSurveyByIdUseCase implements ILoadSurveyByIdDomain {
   constructor (private readonly loadSurveyByIdRepository: ILoadSurveyByIdRepository) {}
   async loadSurveyById (id: string): Promise<TypesSurveyOutputModelDTO> {
-    await this.loadSurveyByIdRepository.loadById(id)
-    return null
+    const survey = await this.loadSurveyByIdRepository.loadById(id)
+    if (!survey) return null
   }
 }
