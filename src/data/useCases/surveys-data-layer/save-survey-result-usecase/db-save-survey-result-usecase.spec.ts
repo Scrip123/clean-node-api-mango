@@ -1,7 +1,6 @@
 import mockdate from 'mockdate'
-import { TypeSurveyResultInputModelDTO, TypeSurveyResultOutputModelDTO } from '@domain/models/Types-survey-result-model'
-import { ISaveSurveyResultRepository } from '@data/protocols/db/surveys/ISave-survey-result-repository'
 import { DbSaveSurveyResultUseCase } from './Db-save-survey-result-usecase'
+import { ISaveSurveyResultRepository, TypeSurveyResultInputModelDTO, TypeSurveyResultOutputModelDTO } from './db-save-survey-result-usecase-protocols'
 
 const makeSaveSurveyResult = (): ISaveSurveyResultRepository => {
   class SaveSurveyResultRepositoryStub implements ISaveSurveyResultRepository {
