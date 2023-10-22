@@ -70,5 +70,27 @@ describe('SurveyResult MongoDb Repository', () => {
       expect(surveyResult.id).toBeTruthy()
       expect(surveyResult.answer).toBe(survey.answers[0].answer)
     })
+
+    it('Should add SurveyResult if its not new', async () => {
+      const survey = await makeSurvey()
+      const accountId = await makeAccount()
+      const res = await surveyResultCollection.insertOne({
+        surveyId: survey.id,
+        accountId: accountId.id,
+        answer: survey.answers[0].answer,
+        createdAt: new Date()
+      })
+
+      const sut = makeSut()
+      const surveyResult = await sut.save({
+        surveyId: survey.id,
+        accountId: accountId.id,
+        answer: survey.answers[1].answer,
+        createdAt: new Date()
+      })
+      expect(surveyResult).toBeTruthy()
+      expect(surveyResult.id).toEqual(res.ops[0]._id)
+      expect(surveyResult.answer).toBe(survey.answers[1].answer)
+    })
   })
 })
