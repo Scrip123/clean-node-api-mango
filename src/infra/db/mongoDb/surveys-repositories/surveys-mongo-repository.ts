@@ -14,12 +14,12 @@ IAddSurveyRepository, ILoadSurveysRepository, ILoadSurveyByIdRepository {
   async loadAllSurveys (): Promise<TypesSurveyOutputModelDTO[]> {
     const surveysCollecction = await MongoHelper.getCollection('surveys')
     const surveys = await surveysCollecction.find().toArray()
-    return surveys
+    return MongoHelper.mapCollection(surveys)
   }
 
   async loadById (id: string): Promise<TypesSurveyOutputModelDTO> {
     const surveysCollecction = await MongoHelper.getCollection('surveys')
     const survey = await surveysCollecction.findOne({ _id: id })
-    return survey || null
+    return survey && MongoHelper.map(survey)
   }
 }
