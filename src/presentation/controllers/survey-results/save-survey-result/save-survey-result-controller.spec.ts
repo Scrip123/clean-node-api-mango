@@ -3,7 +3,7 @@ import { SaveSurveyResultController } from './Save-survey-result-controller'
 import { ILoadSurveyByIdDomain } from '@domain/useCases/surveys-domain-usecases/ILoad-survey-by-id'
 import { TypesSurveyOutputModelDTO } from '@domain/models/ISurvey-model-domain'
 import { TypesHttpRequest } from '@presentation/protocols'
-import { forBidden, serverError } from '@presentation/helpers/http/httpHelper'
+import { forBidden, ok, serverError } from '@presentation/helpers/http/httpHelper'
 import { InvalidParamError } from '@presentation/errors'
 import { ISaveSurveyResultDomain } from '@domain/useCases/surveys-result-domain-usecase/ISave-survey-result-model'
 import { TypeSurveyResultInputModelDTO, TypeSurveyResultOutputModelDTO } from '@domain/models/Types-survey-result-model'
@@ -123,6 +123,12 @@ describe('Save survey results controller', () => {
       const surveyResultSpy = jest.spyOn(saveSurveyResultUseCaseStub, 'save')
       await sut.handle(makeFakeRequest())
       expect(surveyResultSpy).toHaveBeenCalledWith(makeFakeSaveSurveyResultInputData())
+    })
+
+    test('Should return 200 on success', async () => {
+      const { sut } = makeSut()
+      const httpResonpse = await sut.handle(makeFakeRequest())
+      expect(httpResonpse).toEqual(ok(makeFakeSaveSurveyResultOutputData()))
     })
   })
 })
