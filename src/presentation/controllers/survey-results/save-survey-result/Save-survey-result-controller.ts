@@ -1,8 +1,4 @@
-import { ILoadSurveyByIdDomain } from '@domain/useCases/surveys-domain-usecases/ILoad-survey-by-id'
-import { ISaveSurveyResultDomain } from '@domain/useCases/surveys-result-domain-usecase/ISave-survey-result-model'
-import { InvalidParamError } from '@presentation/errors'
-import { forBidden, ok, serverError } from '@presentation/helpers/http/httpHelper'
-import { IController, TypesHttpRequest, TypesHttpResponse } from '@presentation/protocols'
+import { IController, ILoadSurveyByIdDomain, ISaveSurveyResultDomain, InvalidParamError, TypesHttpRequest, TypesHttpResponse, forBidden, ok, serverError } from './save-survey-result-controller-protocols'
 
 export class SaveSurveyResultController implements IController {
   constructor (

@@ -1,12 +1,6 @@
 import mockdate from 'mockdate'
 import { SaveSurveyResultController } from './Save-survey-result-controller'
-import { ILoadSurveyByIdDomain } from '@domain/useCases/surveys-domain-usecases/ILoad-survey-by-id'
-import { TypesSurveyOutputModelDTO } from '@domain/models/ISurvey-model-domain'
-import { TypesHttpRequest } from '@presentation/protocols'
-import { forBidden, ok, serverError } from '@presentation/helpers/http/httpHelper'
-import { InvalidParamError } from '@presentation/errors'
-import { ISaveSurveyResultDomain } from '@domain/useCases/surveys-result-domain-usecase/ISave-survey-result-model'
-import { TypeSurveyResultInputModelDTO, TypeSurveyResultOutputModelDTO } from '@domain/models/Types-survey-result-model'
+import { ILoadSurveyByIdDomain, ISaveSurveyResultDomain, InvalidParamError, TypeSurveyResultInputModelDTO, TypeSurveyResultOutputModelDTO, TypesHttpRequest, TypesSurveyOutputModelDTO, forBidden, ok, serverError } from './save-survey-result-controller-protocols'
 
 const makeSaveSurveyResult = (): ISaveSurveyResultDomain => {
   class SaveSurveyResultUseCaseStub implements ISaveSurveyResultDomain {
