@@ -1,7 +1,7 @@
 import { ILoadSurveyByIdDomain } from '@domain/useCases/surveys-domain-usecases/ILoad-survey-by-id'
 import { ISaveSurveyResultDomain } from '@domain/useCases/surveys-result-domain-usecase/ISave-survey-result-model'
 import { InvalidParamError } from '@presentation/errors'
-import { forBidden, serverError } from '@presentation/helpers/http/httpHelper'
+import { forBidden, ok, serverError } from '@presentation/helpers/http/httpHelper'
 import { IController, TypesHttpRequest, TypesHttpResponse } from '@presentation/protocols'
 
 export class SaveSurveyResultController implements IController {
@@ -23,13 +23,13 @@ export class SaveSurveyResultController implements IController {
         return forBidden(new InvalidParamError('answer'))
       }
 
-      await this.saveSurveyResultUseCase.save({
+      const surveyResult = await this.saveSurveyResultUseCase.save({
         surveyId,
         accountId,
         answer,
         createdAt: new Date()
       })
-      return null
+      return ok(surveyResult)
     } catch (error) {
       return serverError(error)
     }
