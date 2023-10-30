@@ -3,6 +3,7 @@ import { MongoHelper } from '../helpers/mongoHelper'
 import { TypesSurveyInputModelDTO, TypesSurveyOutputModelDTO } from '@domain/models/ISurvey-model-domain'
 import { ILoadSurveysRepository } from '@data/protocols/db/surveys/ILoad-survey-repository'
 import { ILoadSurveyByIdRepository } from '@data/protocols/db/surveys/ILoad-survey-by-id-repository'
+import { ObjectId } from 'mongodb'
 
 export class SurveyMongoRepository implements
 IAddSurveyRepository, ILoadSurveysRepository, ILoadSurveyByIdRepository {
@@ -19,7 +20,7 @@ IAddSurveyRepository, ILoadSurveysRepository, ILoadSurveyByIdRepository {
 
   async loadById (id: string): Promise<TypesSurveyOutputModelDTO> {
     const surveysCollecction = await MongoHelper.getCollection('surveys')
-    const survey = await surveysCollecction.findOne({ _id: id })
+    const survey = await surveysCollecction.findOne({ _id: new ObjectId(id) })
     return survey && MongoHelper.map(survey)
   }
 }
