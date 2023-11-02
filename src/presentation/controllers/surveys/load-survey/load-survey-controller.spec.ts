@@ -1,9 +1,9 @@
 import mockdate from 'mockdate'
 import { LoadSurveyController } from './Load-survey-controller'
-import { TypesSurveyOutputModelDTO, ILoadSurveyUseCaseDomain } from './load-survey-controller-protocols'
+import { TypeSurveyOutputParams, ILoadSurveyUseCaseDomain } from './load-survey-controller-protocols'
 import { noContent, ok, serverError } from '@presentation/helpers/http/httpHelper'
 
-const makeFakeSurveyRequest = (): TypesSurveyOutputModelDTO[] => {
+const makeFakeSurveyRequest = (): TypeSurveyOutputParams[] => {
   return [{
     id: 'any_id',
     question: 'any_value',
@@ -20,7 +20,7 @@ type SutTypes = {
 }
 const makeLoadSurvey = (): ILoadSurveyUseCaseDomain => {
   class LoadSurveyStub implements ILoadSurveyUseCaseDomain {
-    async loadSurveys (): Promise<TypesSurveyOutputModelDTO[]> {
+    async loadSurveys (): Promise<TypeSurveyOutputParams[]> {
       return await new Promise(resolve => resolve(makeFakeSurveyRequest()))
     }
   }

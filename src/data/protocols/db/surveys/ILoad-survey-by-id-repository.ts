@@ -1,5 +1,5 @@
-import { TypesSurveyOutputModelDTO } from '@domain/models/ISurvey-model-domain'
+import { TypeSurveyOutputParams } from '@domain/models/ISurvey-model-domain'
 
 export interface ILoadSurveyByIdRepository {
-  loadById: (id: string) => Promise<TypesSurveyOutputModelDTO>
+  loadById: (id: string) => Promise<TypeSurveyOutputParams>
 }

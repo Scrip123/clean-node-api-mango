@@ -1,6 +1,6 @@
 import mockdate from 'mockdate'
 import { SaveSurveyResultController } from './Save-survey-result-controller'
-import { ILoadSurveyByIdDomain, ISaveSurveyResultDomain, InvalidParamError, TypeSurveyResultInputModelDTO, TypeSurveyResultOutputModelDTO, TypesHttpRequest, TypesSurveyOutputModelDTO, forBidden, ok, serverError } from './save-survey-result-controller-protocols'
+import { ILoadSurveyByIdDomain, ISaveSurveyResultDomain, InvalidParamError, TypeSurveyResultInputModelDTO, TypeSurveyResultOutputModelDTO, TypesHttpRequest, TypeSurveyOutputParams, forBidden, ok, serverError } from './save-survey-result-controller-protocols'
 
 const makeSaveSurveyResult = (): ISaveSurveyResultDomain => {
   class SaveSurveyResultUseCaseStub implements ISaveSurveyResultDomain {
@@ -26,7 +26,7 @@ const makeFakeSaveSurveyResultOutputData = (): TypeSurveyResultOutputModelDTO =>
 
 const makeSurveyLoadById = (): ILoadSurveyByIdDomain => {
   class LoadSurveyByIdUseCaseStub implements ILoadSurveyByIdDomain {
-    async loadSurveyById (id: string): Promise<TypesSurveyOutputModelDTO> {
+    async loadSurveyById (id: string): Promise<TypeSurveyOutputParams> {
       return await Promise.resolve(makeFakeSurveyData())
     }
   }
@@ -41,7 +41,7 @@ const makeFakeRequest = (): TypesHttpRequest => ({
   },
   accountId: 'any_user_id'
 })
-const makeFakeSurveyData = (): TypesSurveyOutputModelDTO => ({
+const makeFakeSurveyData = (): TypeSurveyOutputParams => ({
   id: 'any_id',
   question: 'any_question',
   answers: [{

@@ -1,7 +1,7 @@
 import mockdate from 'mockdate'
 import { badRequest, noContent, serverError } from '@presentation/helpers/http/httpHelper'
 import { AddSurveyController } from './add-survey-controller'
-import { IAddSurvey, TypesSurveyInputModelDTO, TypesHttpRequest, IValidation } from './add-survey-protocols'
+import { IAddSurvey, TypeSurveyInputParams, TypesHttpRequest, IValidation } from './add-survey-protocols'
 
 const makeValidation = (): IValidation => {
   class ValidationStub implements IValidation {
@@ -13,7 +13,7 @@ const makeValidation = (): IValidation => {
 }
 const makeAddSurvey = (): IAddSurvey => {
   class AddSurveyStub implements IAddSurvey {
-    async add (data: TypesSurveyInputModelDTO): Promise<void> {
+    async add (data: TypeSurveyInputParams): Promise<void> {
       return await new Promise(resolve => resolve())
     }
   }

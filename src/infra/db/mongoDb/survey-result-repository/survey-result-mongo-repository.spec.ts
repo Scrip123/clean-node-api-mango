@@ -1,7 +1,7 @@
 import mockdate from 'mockdate'
 import { MongoHelper } from '../helpers/mongoHelper'
 import { SurveyResultMongoRepository } from './survey-result-mongo-repository'
-import { TypesSurveyOutputModelDTO } from '@domain/models/ISurvey-model-domain'
+import { TypeSurveyOutputParams } from '@domain/models/ISurvey-model-domain'
 import { TypeAccountOutputParams } from '@domain/models/IAccountModel'
 import { Collection } from 'mongodb'
 
@@ -13,7 +13,7 @@ const makeSut = (): SurveyResultMongoRepository => {
   return new SurveyResultMongoRepository()
 }
 
-const makeSurvey = async (): Promise<TypesSurveyOutputModelDTO> => {
+const makeSurvey = async (): Promise<TypeSurveyOutputParams> => {
   const response = {
     question: 'any_question',
     answers: [{

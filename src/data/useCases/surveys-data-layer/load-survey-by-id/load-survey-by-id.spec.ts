@@ -1,8 +1,8 @@
 import mockdate from 'mockdate'
 import { DbLoadSurveyByIdUseCase } from './Load-survey-by-id-usecase'
-import { ILoadSurveyByIdRepository, TypesSurveyOutputModelDTO } from './load-survey-by-id-usecase-protocols'
+import { ILoadSurveyByIdRepository, TypeSurveyOutputParams } from './load-survey-by-id-usecase-protocols'
 
-const makeFakeSurveyData = (): TypesSurveyOutputModelDTO => ({
+const makeFakeSurveyData = (): TypeSurveyOutputParams => ({
   id: 'any_id',
   question: 'any_question',
   answers: [{
@@ -13,7 +13,7 @@ const makeFakeSurveyData = (): TypesSurveyOutputModelDTO => ({
 })
 const makeLoadSurveyById = (): ILoadSurveyByIdRepository => {
   class LoadSurveyByIdRepositoryStub implements ILoadSurveyByIdRepository {
-    async loadById (id: string): Promise<TypesSurveyOutputModelDTO> {
+    async loadById (id: string): Promise<TypeSurveyOutputParams> {
       return await Promise.resolve(makeFakeSurveyData())
     }
   }

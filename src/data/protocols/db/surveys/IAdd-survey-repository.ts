@@ -1,5 +1,5 @@
-import { TypesSurveyInputModelDTO } from '@domain/models/ISurvey-model-domain'
+import { TypeSurveyInputParams } from '@domain/models/ISurvey-model-domain'
 
 export interface IAddSurveyRepository {
-  add: (data: TypesSurveyInputModelDTO) => Promise<void>
+  add: (data: TypeSurveyInputParams) => Promise<void>
 }
