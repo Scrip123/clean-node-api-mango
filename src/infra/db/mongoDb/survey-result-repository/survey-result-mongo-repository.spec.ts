@@ -2,7 +2,7 @@ import mockdate from 'mockdate'
 import { MongoHelper } from '../helpers/mongoHelper'
 import { SurveyResultMongoRepository } from './survey-result-mongo-repository'
 import { TypesSurveyOutputModelDTO } from '@domain/models/ISurvey-model-domain'
-import { TypeAccountModelDataBase } from '@domain/models/IAccountModel'
+import { TypeAccountOutputParams } from '@domain/models/IAccountModel'
 import { Collection } from 'mongodb'
 
 let surveyResultCollection: Collection
@@ -28,7 +28,7 @@ const makeSurvey = async (): Promise<TypesSurveyOutputModelDTO> => {
   return responseSurvey.ops[0]
 }
 
-const makeAccount = async (): Promise<TypeAccountModelDataBase> => {
+const makeAccount = async (): Promise<TypeAccountOutputParams> => {
   const response = {
     name: 'any_name',
     email: 'any_email',

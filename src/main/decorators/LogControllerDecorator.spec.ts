@@ -2,7 +2,7 @@ import { IController, TypesHttpRequest, TypesHttpResponse } from '@presentation/
 import { LogControllerDecorator } from './LogControllerDecorator'
 import { ok, serverError } from '@presentation/helpers/http/httpHelper'
 import { ILogErrorRepository } from '@data/protocols/db/log/ILogErrorRepository'
-import { TypeAccountModelDataBase } from '@domain/models/IAccountModel'
+import { TypeAccountOutputParams } from '@domain/models/IAccountModel'
 
 const makeController = (): IController => {
   class ControllerStub implements IController {
@@ -45,7 +45,7 @@ const makeFakeRequest = (): TypesHttpRequest => ({
     passwordConfirmation: 'any_password'
   }
 })
-const makeFakeAccount = (): TypeAccountModelDataBase => (
+const makeFakeAccount = (): TypeAccountOutputParams => (
   {
     id: 'valid_id',
     name: 'valid_name',

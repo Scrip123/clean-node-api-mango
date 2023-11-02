@@ -1,11 +1,11 @@
-import { TypeAccountModelDataBase, TypesAddAccountModel, ILoadAccountByEmailRepository } from './dbAddAccountProtocols'
+import { TypeAccountOutputParams, TypeAccountInputParams, ILoadAccountByEmailRepository } from './dbAddAccountProtocols'
 import { DbAddAcount } from './DbAddAccount'
 import { IAddAccountRepository } from '@data/protocols/db/account/IAddAccountRepository'
 import { IHasher } from '@data/protocols/cryptografy/IHasher'
 
 const makeAddAccountRepository = (): IAddAccountRepository => {
   class AddAccountRepositoryStub implements IAddAccountRepository {
-    async add (account: TypesAddAccountModel): Promise<TypeAccountModelDataBase> {
+    async add (account: TypeAccountInputParams): Promise<TypeAccountOutputParams> {
       return makeFakeAccount()
     }
   }
@@ -22,7 +22,7 @@ const makeEncrypter = (): IHasher => {
 
 const makeLoadAccountByEmailRepository = (): ILoadAccountByEmailRepository => {
   class LoadAccountByEmailRepositoryStub implements ILoadAccountByEmailRepository {
-    async loadAccountByEmail (email: string): Promise<TypeAccountModelDataBase> {
+    async loadAccountByEmail (email: string): Promise<TypeAccountOutputParams> {
       return await new Promise(resolve => resolve(null))
     }
   }
@@ -48,13 +48,13 @@ const makeSut = (): SutTypes => {
     loadAccountByEmailRepositoryStub
   }
 }
-const makeFakeAccount = (): TypeAccountModelDataBase => ({
+const makeFakeAccount = (): TypeAccountOutputParams => ({
   id: 'valid_id',
   name: 'valid_name',
   email: 'valid_email',
   password: 'hashed_password'
 })
-const makeFakeAccountData = (): TypesAddAccountModel => ({
+const makeFakeAccountData = (): TypeAccountInputParams => ({
   name: 'valid_name',
   email: 'valid_email@gmail.com',
   password: 'valid_password'

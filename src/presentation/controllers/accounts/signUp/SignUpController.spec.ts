@@ -2,9 +2,9 @@ import { SignUpController } from './SignUpController'
 import { MissingParamError, ServerError } from '@presentation/errors'
 import {
   IEmailValidator,
-  TypeAccountModelDataBase,
+  TypeAccountOutputParams,
   IAddAccount,
-  TypesAddAccountModel,
+  TypeAccountInputParams,
   TypesHttpRequest,
   IValidation,
   IAuthentication,
@@ -24,7 +24,7 @@ const makeEmailValidator = (): IEmailValidator => {
 }
 const makeAddAccount = (): IAddAccount => {
   class AddAccountStub implements IAddAccount {
-    async add (account: TypesAddAccountModel): Promise<TypeAccountModelDataBase> {
+    async add (account: TypeAccountInputParams): Promise<TypeAccountOutputParams> {
       return await new Promise(resolve => { resolve(makeFakeAccount()) })
     }
   }
@@ -76,7 +76,7 @@ const makeFakeRequest = (): TypesHttpRequest => ({
     passwordConfirmation: 'any_password'
   }
 })
-const makeFakeAccount = (): TypeAccountModelDataBase => ({
+const makeFakeAccount = (): TypeAccountOutputParams => ({
   id: 'valid_id',
   name: 'valid_name',
   email: 'valid_email@gmail.com',

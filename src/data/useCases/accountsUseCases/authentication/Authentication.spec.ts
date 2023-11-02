@@ -1,14 +1,14 @@
 import { TypesAuthenticationModel } from '@domain/useCases/accountsDomainUseCases/IAuthentication'
 import { AuthenticationUseCase } from './Authentication'
 import {
-  TypeAccountModelDataBase,
+  TypeAccountOutputParams,
   IEncrypterToken,
   IHashCompare,
   ILoadAccountByEmailRepository,
   IUpdateAccessTokenRepository
 } from './authenticationProtocols'
 
-const makeFakeAccount = (): TypeAccountModelDataBase => ({
+const makeFakeAccount = (): TypeAccountOutputParams => ({
   id: 'any_id',
   name: 'any_name',
   email: 'any_email@gmail.com',
@@ -16,7 +16,7 @@ const makeFakeAccount = (): TypeAccountModelDataBase => ({
 })
 const makeLoadAccountByEmailRepository = (): ILoadAccountByEmailRepository => {
   class LoadAccountByEmailRepositoryStub implements ILoadAccountByEmailRepository {
-    async loadAccountByEmail (email: string): Promise<TypeAccountModelDataBase> {
+    async loadAccountByEmail (email: string): Promise<TypeAccountOutputParams> {
       return await new Promise(resolve => resolve(makeFakeAccount()))
     }
   }

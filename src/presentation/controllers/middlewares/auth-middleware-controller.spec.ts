@@ -1,7 +1,7 @@
 import { AccessDeniedError } from '@presentation/errors/Access-denied-error'
 import { forBidden, ok, serverError } from '@presentation/helpers/http/httpHelper'
 import { AuthMiddlewareController } from './auth-middleware-controller'
-import { TypeAccountModelDataBase, TypesHttpRequest, ILoadAccountByToken } from './auth-middleware-controller-protocols'
+import { TypeAccountOutputParams, TypesHttpRequest, ILoadAccountByToken } from './auth-middleware-controller-protocols'
 
 type SutTypes = {
   sut: AuthMiddlewareController
@@ -9,7 +9,7 @@ type SutTypes = {
 }
 const makeLoadAccountByToken = (): ILoadAccountByToken => {
   class LoadAccountByTokenStub implements ILoadAccountByToken {
-    async load (accessToken: string, role?: string): Promise<TypeAccountModelDataBase> {
+    async load (accessToken: string, role?: string): Promise<TypeAccountOutputParams> {
       return await new Promise(resolve => resolve(makeFakeAccount()))
     }
   }
@@ -23,7 +23,7 @@ const makeSut = (role?: string): SutTypes => {
     loadAccountByTokenStub
   }
 }
-const makeFakeAccount = (): TypeAccountModelDataBase => ({
+const makeFakeAccount = (): TypeAccountOutputParams => ({
   id: 'valid_id',
   name: 'valid_name',
   email: 'valid_email@gmail.com',

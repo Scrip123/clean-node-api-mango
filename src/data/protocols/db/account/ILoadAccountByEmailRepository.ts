@@ -1,5 +1,5 @@
-import { TypeAccountModelDataBase } from '@domain/models/IAccountModel'
+import { TypeAccountOutputParams } from '@domain/models/IAccountModel'
 
 export interface ILoadAccountByEmailRepository {
-  loadAccountByEmail: (email: string) => Promise<TypeAccountModelDataBase>
+  loadAccountByEmail: (email: string) => Promise<TypeAccountOutputParams>
 }

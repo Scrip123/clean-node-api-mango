@@ -1,5 +1,5 @@
-import { TypeAccountModelDataBase } from '@domain/models/IAccountModel'
+import { TypeAccountOutputParams } from '@domain/models/IAccountModel'
 
 export interface ILoadAccountByToken {
-  load: (accessToken: string, role?: string) => Promise<TypeAccountModelDataBase>
+  load: (accessToken: string, role?: string) => Promise<TypeAccountOutputParams>
 }

@@ -1,9 +1,9 @@
 import { IDecrypter } from '@data/protocols/cryptografy/IDecrypter'
 import { DbLoadAccountByToken } from './db-load-account-by-token'
 import { ILoadAccountByTokenRepository } from '@data/protocols/db/account/ILoad-account-by-token-repository'
-import { TypeAccountModelDataBase } from '../accountsUseCases/addAccount/dbAddAccountProtocols'
+import { TypeAccountOutputParams } from '../accountsUseCases/addAccount/dbAddAccountProtocols'
 
-const makeFakeAccount = (): TypeAccountModelDataBase => ({
+const makeFakeAccount = (): TypeAccountOutputParams => ({
   id: 'valid_id',
   name: 'valid_name',
   email: 'valid_email',
@@ -19,7 +19,7 @@ const makeDecrypter = (): IDecrypter => {
 }
 const makeLoadAccountByTokenRepository = (): ILoadAccountByTokenRepository => {
   class LoadAccountByTokenRepository implements ILoadAccountByTokenRepository {
-    async loadAccountByToken (token: string, role?: string): Promise<TypeAccountModelDataBase> {
+    async loadAccountByToken (token: string, role?: string): Promise<TypeAccountOutputParams> {
       return await new Promise(resolve => resolve(makeFakeAccount()))
     }
   }
