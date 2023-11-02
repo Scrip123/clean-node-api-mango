@@ -1,5 +1,5 @@
-import { TypeSurveyResultInputModelDTO, TypeSurveyResultOutputModelDTO } from '@domain/models/Types-survey-result-model'
+import { TypeSurveyResultInputParams, TypeSurveyResultOutputParams } from '@domain/models/Types-survey-result-model'
 
 export interface ISaveSurveyResultRepository {
-  save: (data: TypeSurveyResultInputModelDTO) => Promise<TypeSurveyResultOutputModelDTO>
+  save: (data: TypeSurveyResultInputParams) => Promise<TypeSurveyResultOutputParams>
 }

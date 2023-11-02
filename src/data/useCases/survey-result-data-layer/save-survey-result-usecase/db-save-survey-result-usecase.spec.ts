@@ -1,10 +1,10 @@
 import mockdate from 'mockdate'
 import { DbSaveSurveyResultUseCase } from './Db-save-survey-result-usecase'
-import { ISaveSurveyResultRepository, TypeSurveyResultInputModelDTO, TypeSurveyResultOutputModelDTO } from './db-save-survey-result-usecase-protocols'
+import { ISaveSurveyResultRepository, TypeSurveyResultInputParams, TypeSurveyResultOutputParams } from './db-save-survey-result-usecase-protocols'
 
 const makeSaveSurveyResult = (): ISaveSurveyResultRepository => {
   class SaveSurveyResultRepositoryStub implements ISaveSurveyResultRepository {
-    async save (data: TypeSurveyResultInputModelDTO): Promise<TypeSurveyResultOutputModelDTO> {
+    async save (data: TypeSurveyResultInputParams): Promise<TypeSurveyResultOutputParams> {
       return await new Promise(resolve => resolve(makeFakeSurveyResultOutputData()))
     }
   }
@@ -23,13 +23,13 @@ const makeSut = (): SutTypes => {
     saveSurveyResultRepositoryStub
   }
 }
-const makeFakeSurveyResultInputData = (): TypeSurveyResultInputModelDTO => ({
+const makeFakeSurveyResultInputData = (): TypeSurveyResultInputParams => ({
   surveyId: 'any_survey_id',
   accountId: 'user_id',
   answer: 'any_answer',
   createdAt: new Date()
 })
-const makeFakeSurveyResultOutputData = (): TypeSurveyResultOutputModelDTO => ({
+const makeFakeSurveyResultOutputData = (): TypeSurveyResultOutputParams => ({
   id: 'any_id',
   surveyId: 'any_survey_id',
   accountId: 'user_id',
