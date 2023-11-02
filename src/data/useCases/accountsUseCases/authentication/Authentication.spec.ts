@@ -1,4 +1,4 @@
-import { TypesAuthenticationModel } from '@domain/useCases/accountsDomainUseCases/IAuthentication'
+import { TypeAuthenticationInputParams } from '@domain/useCases/accountsDomainUseCases/IAuthentication'
 import { AuthenticationUseCase } from './Authentication'
 import {
   TypeAccountOutputParams,
@@ -73,7 +73,7 @@ const makeSut = (): SutTypes => {
     updateTokenRepositoryStub
   }
 }
-const makeFakeAuthentication = (): TypesAuthenticationModel => ({
+const makeFakeAuthentication = (): TypeAuthenticationInputParams => ({
   email: 'any_email@gmail.com',
   password: 'any_password'
 })

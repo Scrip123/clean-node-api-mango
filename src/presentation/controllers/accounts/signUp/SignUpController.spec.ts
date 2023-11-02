@@ -8,7 +8,7 @@ import {
   TypesHttpRequest,
   IValidation,
   IAuthentication,
-  TypesAuthenticationModel
+  TypeAuthenticationInputParams
 }
   from './signUpProtocols'
 import { ok, badRequest, serverError, forBidden } from '@presentation/helpers/http/httpHelper'
@@ -40,7 +40,7 @@ const makeValidation = (): IValidation => {
 }
 const makeAuthentication = (): IAuthentication => {
   class AuthenticationStub implements IAuthentication {
-    async auth (authentication: TypesAuthenticationModel): Promise<string> {
+    async auth (authentication: TypeAuthenticationInputParams): Promise<string> {
       return await new Promise(resolve => resolve('any_token'))
     }
   }
