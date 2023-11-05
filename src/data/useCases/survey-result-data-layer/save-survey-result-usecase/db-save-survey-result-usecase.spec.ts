@@ -1,6 +1,7 @@
 import mockdate from 'mockdate'
 import { DbSaveSurveyResultUseCase } from './Db-save-survey-result-usecase'
 import { ISaveSurveyResultRepository, TypeSurveyResultInputParams, TypeSurveyResultOutputParams } from './db-save-survey-result-usecase-protocols'
+import { throwError } from '@domain/test/test-error-helper'
 
 const makeSaveSurveyResult = (): ISaveSurveyResultRepository => {
   class SaveSurveyResultRepositoryStub implements ISaveSurveyResultRepository {
@@ -58,8 +59,7 @@ describe('DbAddSurvey UseCase', () => {
 
   it('Should throw if SaveSurveyResultRepositoryStub throws', async () => {
     const { sut, saveSurveyResultRepositoryStub } = makeSut()
-    jest.spyOn(saveSurveyResultRepositoryStub, 'save')
-      .mockReturnValueOnce(Promise.reject(new Error()))
+    jest.spyOn(saveSurveyResultRepositoryStub, 'save').mockImplementationOnce(throwError)
     const promise = sut.save(makeFakeSurveyResultInputData())
     await expect(promise).rejects.toThrow()
   })

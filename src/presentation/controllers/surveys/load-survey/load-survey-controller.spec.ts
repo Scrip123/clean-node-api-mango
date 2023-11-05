@@ -2,6 +2,7 @@ import mockdate from 'mockdate'
 import { LoadSurveyController } from './Load-survey-controller'
 import { TypeSurveyOutputParams, ILoadSurveyUseCaseDomain } from './load-survey-controller-protocols'
 import { noContent, ok, serverError } from '@presentation/helpers/http/httpHelper'
+import { throwError } from '@domain/test/test-error-helper'
 
 const makeFakeSurveyRequest = (): TypeSurveyOutputParams[] => {
   return [{
@@ -65,8 +66,7 @@ describe('LoadSurveys Controller', () => {
 
   it('should reutrns 500 if LoadSurveys throws', async () => {
     const { sut, loadSurveyStub } = makeSut()
-    jest.spyOn(loadSurveyStub, 'loadSurveys')
-      .mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())))
+    jest.spyOn(loadSurveyStub, 'loadSurveys').mockImplementationOnce(throwError)
     const httpResponse = await sut.handle({})
     expect(httpResponse).toEqual(serverError(new Error()))
   })

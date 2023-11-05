@@ -13,6 +13,7 @@ import {
   from './signUpProtocols'
 import { ok, badRequest, serverError, forBidden } from '@presentation/helpers/http/httpHelper'
 import { EmailInUseError } from '@presentation/errors/EmailInUseError'
+import { throwError } from '@domain/test/test-error-helper'
 
 const makeEmailValidator = (): IEmailValidator => {
   class EmailValidatorStub implements IEmailValidator {
@@ -96,9 +97,7 @@ describe('Signup controller', () => {
 
   it('Should return 500 if AddAccount throws', async () => {
     const { sut, addAccountStub } = makeSut()
-    jest.spyOn(addAccountStub, 'add').mockImplementationOnce(async () => {
-      return await new Promise((resolve, reject) => { reject(new Error()) })
-    })
+    jest.spyOn(addAccountStub, 'add').mockImplementationOnce(throwError)
 
     const httpResponse = await sut.handle(makeFakeRequest())
     expect(httpResponse).toEqual(serverError(new ServerError()))
@@ -147,9 +146,7 @@ describe('Signup controller', () => {
   })
   it('Should returns 500 if Authentication throws', async () => {
     const { sut, authenticationStub } = makeSut()
-    jest.spyOn(authenticationStub, 'auth').mockReturnValueOnce(
-      new Promise((resolve, reject) => reject(new Error()))
-    )
+    jest.spyOn(authenticationStub, 'auth').mockImplementationOnce(throwError)
     const httResponse = await sut.handle(makeFakeRequest())
     expect(httResponse).toEqual(serverError(new Error()))
   })

@@ -1,6 +1,7 @@
 import mockdate from 'mockdate'
 import { DbLoadSurveyByIdUseCase } from './Load-survey-by-id-usecase'
 import { ILoadSurveyByIdRepository, TypeSurveyOutputParams } from './load-survey-by-id-usecase-protocols'
+import { throwError } from '@domain/test/test-error-helper'
 
 const makeFakeSurveyData = (): TypeSurveyOutputParams => ({
   id: 'any_id',
@@ -59,8 +60,7 @@ describe('Load Survey By Id', () => {
 
   it('Should throw if LoadSurveyByIdRepository throws', async () => {
     const { sut, loadSurveyByIdRepositoryStub } = makeSut()
-    jest.spyOn(loadSurveyByIdRepositoryStub, 'loadById')
-      .mockReturnValueOnce(Promise.reject(new Error()))
+    jest.spyOn(loadSurveyByIdRepositoryStub, 'loadById').mockImplementationOnce(throwError)
     const promise = sut.loadSurveyById('any_id')
     await expect(promise).rejects.toThrow()
   })

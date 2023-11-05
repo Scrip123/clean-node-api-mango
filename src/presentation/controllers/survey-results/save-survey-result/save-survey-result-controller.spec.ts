@@ -1,6 +1,7 @@
 import mockdate from 'mockdate'
 import { SaveSurveyResultController } from './Save-survey-result-controller'
 import { ILoadSurveyByIdDomain, ISaveSurveyResultDomain, InvalidParamError, TypeSurveyResultInputParams, TypeSurveyResultOutputParams, TypesHttpRequest, TypeSurveyOutputParams, forBidden, ok, serverError } from './save-survey-result-controller-protocols'
+import { throwError } from '@domain/test/test-error-helper'
 
 const makeSaveSurveyResult = (): ISaveSurveyResultDomain => {
   class SaveSurveyResultUseCaseStub implements ISaveSurveyResultDomain {
@@ -91,8 +92,7 @@ describe('Save survey results controller', () => {
 
     test('Should return 500 if loadSurveyByIdUseCaseStub throws', async () => {
       const { sut, loadSurveyByIdUseCaseStub } = makeSut()
-      jest.spyOn(loadSurveyByIdUseCaseStub, 'loadSurveyById')
-        .mockReturnValueOnce(Promise.reject(new Error()))
+      jest.spyOn(loadSurveyByIdUseCaseStub, 'loadSurveyById').mockImplementationOnce(throwError)
       const httpResponse = await sut.handle(makeFakeRequest())
       expect(httpResponse).toEqual(serverError(new Error()))
     })
@@ -127,8 +127,7 @@ describe('Save survey results controller', () => {
 
     test('Should return 500 if saveSurveyResultUseCaseStub throws', async () => {
       const { sut, saveSurveyResultUseCaseStub } = makeSut()
-      jest.spyOn(saveSurveyResultUseCaseStub, 'save')
-        .mockReturnValueOnce(Promise.reject(new Error()))
+      jest.spyOn(saveSurveyResultUseCaseStub, 'save').mockImplementationOnce(throwError)
       const httpResponse = await sut.handle(makeFakeRequest())
       expect(httpResponse).toEqual(serverError(new Error()))
     })

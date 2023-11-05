@@ -1,6 +1,7 @@
 import mockdate from 'mockdate'
 import { DbLoadSurveysUseCase } from './Db-load-surveys-usecase'
 import { ILoadSurveysRepository, TypeSurveyOutputParams } from './db-load-surveys-usecase-protocols'
+import { throwError } from '@domain/test/test-error-helper'
 
 const makeLoadSurveysRepository = (): ILoadSurveysRepository => {
   class LoadSurveysRepositoryStub implements ILoadSurveysRepository {
@@ -58,8 +59,7 @@ describe('Db LoadSurveys useCase', () => {
 
   it('Should throws if AddSurveyRepository throws', async () => {
     const { sut, loadSurveysRepositoryStub } = makeSut()
-    jest.spyOn(loadSurveysRepositoryStub, 'loadAllSurveys')
-      .mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())))
+    jest.spyOn(loadSurveysRepositoryStub, 'loadAllSurveys').mockImplementationOnce(throwError)
     const promise = sut.loadSurveys()
     await expect(promise).rejects.toThrow()
   })

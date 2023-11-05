@@ -2,6 +2,7 @@ import mockdate from 'mockdate'
 import { badRequest, noContent, serverError } from '@presentation/helpers/http/httpHelper'
 import { AddSurveyController } from './add-survey-controller'
 import { IAddSurvey, TypeSurveyInputParams, TypesHttpRequest, IValidation } from './add-survey-protocols'
+import { throwError } from '@domain/test/test-error-helper'
 
 const makeValidation = (): IValidation => {
   class ValidationStub implements IValidation {
@@ -77,8 +78,7 @@ describe('Add Survey Controller', () => {
 
   it('should reutrns 500 if AddSurvey throws', async () => {
     const { sut, addSurveyStub } = makeSut()
-    jest.spyOn(addSurveyStub, 'add')
-      .mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())))
+    jest.spyOn(addSurveyStub, 'add').mockImplementationOnce(throwError)
     const httpRequest = makeFakeRequest()
     const httpResponse = await sut.handle(httpRequest)
     expect(httpResponse).toEqual(serverError(new Error()))

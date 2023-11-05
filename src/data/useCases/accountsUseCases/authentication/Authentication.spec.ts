@@ -7,6 +7,7 @@ import {
   ILoadAccountByEmailRepository,
   IUpdateAccessTokenRepository
 } from './authenticationProtocols'
+import { throwError } from '@domain/test/test-error-helper'
 
 const makeFakeAccount = (): TypeAccountOutputParams => ({
   id: 'any_id',
@@ -88,7 +89,7 @@ describe('DbAuthentication useCase', () => {
   it('Should throw if loadAccountByEmailRepository throws', async () => {
     const { sut, loadAccountByEmailRepositoryStub } = makeSut()
     jest.spyOn(loadAccountByEmailRepositoryStub, 'loadAccountByEmail')
-      .mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())))
+      .mockImplementationOnce(throwError)
     const promise = sut.auth(makeFakeAuthentication())
     await expect(promise).rejects.toThrow()
   })
@@ -110,8 +111,7 @@ describe('DbAuthentication useCase', () => {
 
   it('Should throw if HashCompare throws', async () => {
     const { sut, hashCompareStub } = makeSut()
-    jest.spyOn(hashCompareStub, 'compare')
-      .mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())))
+    jest.spyOn(hashCompareStub, 'compare').mockImplementationOnce(throwError)
     const promise = sut.auth(makeFakeAuthentication())
     await expect(promise).rejects.toThrow()
   })
@@ -132,8 +132,7 @@ describe('DbAuthentication useCase', () => {
 
   it('Should throw if encrypterToken throws', async () => {
     const { sut, encrypterTokenStub } = makeSut()
-    jest.spyOn(encrypterTokenStub, 'encrypt')
-      .mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())))
+    jest.spyOn(encrypterTokenStub, 'encrypt').mockImplementationOnce(throwError)
     const promise = sut.auth(makeFakeAuthentication())
     await expect(promise).rejects.toThrow()
   })
@@ -154,7 +153,7 @@ describe('DbAuthentication useCase', () => {
   it('Should throw if UpdateAccessTokenRepository throws', async () => {
     const { sut, updateTokenRepositoryStub } = makeSut()
     jest.spyOn(updateTokenRepositoryStub, 'updateAccessToken')
-      .mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())))
+      .mockImplementationOnce(throwError)
     const promise = sut.auth(makeFakeAuthentication())
     await expect(promise).rejects.toThrow()
   })
