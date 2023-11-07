@@ -24,7 +24,7 @@ const makeSut = (): SutTypes => {
     addSurveyRepositoryStub
   }
 }
-const makeFakeSurveyData = (): TypeSurveyInputParams => ({
+const mockSurveyInputParams = (): TypeSurveyInputParams => ({
   question: 'any_question',
   answers: [{
     image: 'any_image',
@@ -42,14 +42,14 @@ describe('DbAddSurvey UseCase', () => {
   it('Should calls AddSurveyRepository with correct values', async () => {
     const { sut, addSurveyRepositoryStub } = makeSut()
     const addSpy = jest.spyOn(addSurveyRepositoryStub, 'add')
-    await sut.add(makeFakeSurveyData())
-    expect(addSpy).toHaveBeenCalledWith(makeFakeSurveyData())
+    await sut.add(mockSurveyInputParams())
+    expect(addSpy).toHaveBeenCalledWith(mockSurveyInputParams())
   })
 
   it('Should throws if AddSurveyRepository throws', async () => {
     const { sut, addSurveyRepositoryStub } = makeSut()
     jest.spyOn(addSurveyRepositoryStub, 'add').mockImplementationOnce(throwError)
-    const promise = sut.add(makeFakeSurveyData())
+    const promise = sut.add(mockSurveyInputParams())
     await expect(promise).rejects.toThrow()
   })
 })

@@ -2,20 +2,12 @@ import mockdate from 'mockdate'
 import { DbLoadSurveyByIdUseCase } from './Load-survey-by-id-usecase'
 import { ILoadSurveyByIdRepository, TypeSurveyOutputParams } from './load-survey-by-id-usecase-protocols'
 import { throwError } from '@domain/test/test-error-helper'
+import { mockSurveyOutputParams } from '@domain/test/mock-survey-model'
 
-const makeFakeSurveyData = (): TypeSurveyOutputParams => ({
-  id: 'any_id',
-  question: 'any_question',
-  answers: [{
-    image: 'any_image',
-    answer: 'any_question'
-  }],
-  createdAt: new Date()
-})
 const makeLoadSurveyById = (): ILoadSurveyByIdRepository => {
   class LoadSurveyByIdRepositoryStub implements ILoadSurveyByIdRepository {
     async loadById (id: string): Promise<TypeSurveyOutputParams> {
-      return await Promise.resolve(makeFakeSurveyData())
+      return await Promise.resolve(mockSurveyOutputParams())
     }
   }
   return new LoadSurveyByIdRepositoryStub()
@@ -55,7 +47,7 @@ describe('Load Survey By Id', () => {
   it('Should return survey on success', async () => {
     const { sut } = makeSut()
     const survey = await sut.loadSurveyById('any_id')
-    expect(survey).toEqual(makeFakeSurveyData())
+    expect(survey).toEqual(mockSurveyOutputParams())
   })
 
   it('Should throw if LoadSurveyByIdRepository throws', async () => {
