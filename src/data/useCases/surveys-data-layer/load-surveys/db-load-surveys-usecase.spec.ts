@@ -1,22 +1,16 @@
 import mockdate from 'mockdate'
 import { DbLoadSurveysUseCase } from './Db-load-surveys-usecase'
-import { ILoadSurveysRepository, TypeSurveyOutputParams } from './db-load-surveys-usecase-protocols'
+import { ILoadSurveysRepository } from './db-load-surveys-usecase-protocols'
 import { throwError } from '@domain/test/test-error-helper'
+import { mockLoadSurveysRepository } from '@data/test'
+import { mockSurveyOutputParams } from '@domain/test'
 
-const makeLoadSurveysRepository = (): ILoadSurveysRepository => {
-  class LoadSurveysRepositoryStub implements ILoadSurveysRepository {
-    async loadAllSurveys (): Promise<TypeSurveyOutputParams[]> {
-      return await new Promise(resolve => resolve(makeFakeSurveysOutputData()))
-    }
-  }
-  return new LoadSurveysRepositoryStub()
-}
 type SutTypes = {
   sut: DbLoadSurveysUseCase
   loadSurveysRepositoryStub: ILoadSurveysRepository
 }
 const makeSut = (): SutTypes => {
-  const loadSurveysRepositoryStub = makeLoadSurveysRepository()
+  const loadSurveysRepositoryStub = mockLoadSurveysRepository()
   const sut = new DbLoadSurveysUseCase(loadSurveysRepositoryStub)
   return {
     sut,
@@ -24,19 +18,6 @@ const makeSut = (): SutTypes => {
   }
 }
 
-const makeFakeSurveysOutputData = (): TypeSurveyOutputParams [] => {
-  return [
-    {
-      id: 'any_id',
-      question: 'any_question',
-      answers: [{
-        image: 'any_image',
-        answer: 'any_question'
-      }],
-      createdAt: new Date()
-    }
-  ]
-}
 describe('Db LoadSurveys useCase', () => {
   beforeAll(() => {
     mockdate.set(new Date())
@@ -54,7 +35,7 @@ describe('Db LoadSurveys useCase', () => {
   it('Should return a list of Surveys on success', async () => {
     const { sut } = makeSut()
     const surveys = await sut.loadSurveys()
-    expect(surveys).toEqual(makeFakeSurveysOutputData())
+    expect(surveys).toEqual([mockSurveyOutputParams()])
   })
 
   it('Should throws if AddSurveyRepository throws', async () => {

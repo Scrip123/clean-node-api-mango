@@ -1,24 +1,16 @@
 import mockdate from 'mockdate'
 import { DbSaveSurveyResultUseCase } from './Db-save-survey-result-usecase'
-import { ISaveSurveyResultRepository, TypeSurveyResultInputParams, TypeSurveyResultOutputParams } from './db-save-survey-result-usecase-protocols'
+import { ISaveSurveyResultRepository } from './db-save-survey-result-usecase-protocols'
 import { throwError } from '@domain/test/test-error-helper'
 import { mockSurveyResultInputParams, mockSurveyResultOutputParams } from '@domain/test'
-
-const makeSaveSurveyResultRepository = (): ISaveSurveyResultRepository => {
-  class SaveSurveyResultRepositoryStub implements ISaveSurveyResultRepository {
-    async save (data: TypeSurveyResultInputParams): Promise<TypeSurveyResultOutputParams> {
-      return await new Promise(resolve => resolve(mockSurveyResultOutputParams()))
-    }
-  }
-  return new SaveSurveyResultRepositoryStub()
-}
+import { mockSaveSurveyResultRepository } from '@data/test'
 
 type SutTypes = {
   sut: DbSaveSurveyResultUseCase
   saveSurveyResultRepositoryStub: ISaveSurveyResultRepository
 }
 const makeSut = (): SutTypes => {
-  const saveSurveyResultRepositoryStub = makeSaveSurveyResultRepository()
+  const saveSurveyResultRepositoryStub = mockSaveSurveyResultRepository()
   const sut = new DbSaveSurveyResultUseCase(saveSurveyResultRepositoryStub)
   return {
     sut,

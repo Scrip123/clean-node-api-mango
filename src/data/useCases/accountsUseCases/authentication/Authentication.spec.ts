@@ -8,7 +8,7 @@ import {
 } from './authenticationProtocols'
 import { throwError } from '@domain/test/test-error-helper'
 import { mockAuthenticationInputparams } from '@domain/test'
-import { mockEncrypterToken, mockHahsComapre } from '@data/test'
+import { mockEncrypterToken, mockHahsComapre, mockUpdateAccessTokenRepository } from '@data/test'
 
 const makeFakeAccount = (): TypeAccountOutputParams => ({
   id: 'any_id',
@@ -25,14 +25,6 @@ const makeLoadAccountByEmailRepository = (): ILoadAccountByEmailRepository => {
   return new LoadAccountByEmailRepositoryStub()
 }
 
-const makeUpdateAccessTokenRepository = (): IUpdateAccessTokenRepository => {
-  class UpdateTokenRepositoryStub implements IUpdateAccessTokenRepository {
-    async updateAccessToken (id: string, token: string): Promise<void> {
-      return await new Promise(resolve => resolve())
-    }
-  }
-  return new UpdateTokenRepositoryStub()
-}
 type SutTypes = {
   sut: AuthenticationUseCase
   loadAccountByEmailRepositoryStub: ILoadAccountByEmailRepository
@@ -44,7 +36,7 @@ const makeSut = (): SutTypes => {
   const loadAccountByEmailRepositoryStub = makeLoadAccountByEmailRepository()
   const hashCompareStub = mockHahsComapre()
   const encrypterTokenStub = mockEncrypterToken()
-  const updateTokenRepositoryStub = makeUpdateAccessTokenRepository()
+  const updateTokenRepositoryStub = mockUpdateAccessTokenRepository()
   const sut = new AuthenticationUseCase(
     loadAccountByEmailRepositoryStub,
     hashCompareStub,

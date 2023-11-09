@@ -1,28 +1,10 @@
-import { TypeAccountOutputParams, TypeAccountInputParams, ILoadAccountByEmailRepository } from './dbAddAccountProtocols'
+import { ILoadAccountByEmailRepository } from './dbAddAccountProtocols'
 import { DbAddAcount } from './DbAddAccount'
 import { IAddAccountRepository } from '@data/protocols/db/account/IAddAccountRepository'
 import { IHasher } from '@data/protocols/cryptografy/IHasher'
 import { mockAccountInputParams, mockAccountOutputParams } from '@domain/test'
 import { throwError } from '@domain/test/test-error-helper'
-import { mockEncrypter } from '@data/test'
-
-const makeAddAccountRepository = (): IAddAccountRepository => {
-  class AddAccountRepositoryStub implements IAddAccountRepository {
-    async add (account: TypeAccountInputParams): Promise<TypeAccountOutputParams> {
-      return mockAccountOutputParams()
-    }
-  }
-  return new AddAccountRepositoryStub()
-}
-
-const makeLoadAccountByEmailRepository = (): ILoadAccountByEmailRepository => {
-  class LoadAccountByEmailRepositoryStub implements ILoadAccountByEmailRepository {
-    async loadAccountByEmail (email: string): Promise<TypeAccountOutputParams> {
-      return await new Promise(resolve => resolve(null))
-    }
-  }
-  return new LoadAccountByEmailRepositoryStub()
-}
+import { mockAddAccountRepository, mockEncrypter, mockLoadAccountByEmailRepository } from '@data/test'
 
 type SutTypes = {
   sut: DbAddAcount
@@ -32,8 +14,8 @@ type SutTypes = {
 }
 const makeSut = (): SutTypes => {
   const encryptStub = mockEncrypter()
-  const addAccountRepositoryStub = makeAddAccountRepository()
-  const loadAccountByEmailRepositoryStub = makeLoadAccountByEmailRepository()
+  const addAccountRepositoryStub = mockAddAccountRepository()
+  const loadAccountByEmailRepositoryStub = mockLoadAccountByEmailRepository()
   const sut = new DbAddAcount(encryptStub, addAccountRepositoryStub, loadAccountByEmailRepositoryStub)
 
   return {

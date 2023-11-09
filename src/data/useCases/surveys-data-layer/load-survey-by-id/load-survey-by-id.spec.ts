@@ -1,23 +1,16 @@
 import mockdate from 'mockdate'
 import { DbLoadSurveyByIdUseCase } from './Load-survey-by-id-usecase'
-import { ILoadSurveyByIdRepository, TypeSurveyOutputParams } from './load-survey-by-id-usecase-protocols'
+import { ILoadSurveyByIdRepository } from './load-survey-by-id-usecase-protocols'
 import { throwError } from '@domain/test/test-error-helper'
 import { mockSurveyOutputParams } from '@domain/test/mock-survey-model'
+import { mockLoadSurveyByIdRepository } from '@data/test'
 
-const makeLoadSurveyByIdRepository = (): ILoadSurveyByIdRepository => {
-  class LoadSurveyByIdRepositoryStub implements ILoadSurveyByIdRepository {
-    async loadById (id: string): Promise<TypeSurveyOutputParams> {
-      return await Promise.resolve(mockSurveyOutputParams())
-    }
-  }
-  return new LoadSurveyByIdRepositoryStub()
-}
 interface SutTypes {
   sut: DbLoadSurveyByIdUseCase
   loadSurveyByIdRepositoryStub: ILoadSurveyByIdRepository
 }
 const makeSut = (): SutTypes => {
-  const loadSurveyByIdRepositoryStub = makeLoadSurveyByIdRepository()
+  const loadSurveyByIdRepositoryStub = mockLoadSurveyByIdRepository()
   const sut = new DbLoadSurveyByIdUseCase(loadSurveyByIdRepositoryStub)
   return {
     sut,

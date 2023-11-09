@@ -2,22 +2,14 @@ import mockdate from 'mockdate'
 import { TypeSurveyInputParams, IAddSurveyRepository } from './db-add-survey-usecase'
 import { DbAddSurveyUseCase } from './db-add-survey-usecase-protocols'
 import { throwError } from '@domain/test/test-error-helper'
-
-const makeAddSurveyRepository = (): IAddSurveyRepository => {
-  class AddSurveyRepositoryStub implements IAddSurveyRepository {
-    async add (data: TypeSurveyInputParams): Promise<void> {
-      return await new Promise(resolve => resolve())
-    }
-  }
-  return new AddSurveyRepositoryStub()
-}
+import { mockAddSurveyRepository } from '@data/test'
 
 type SutTypes = {
   sut: DbAddSurveyUseCase
   addSurveyRepositoryStub: IAddSurveyRepository
 }
 const makeSut = (): SutTypes => {
-  const addSurveyRepositoryStub = makeAddSurveyRepository()
+  const addSurveyRepositoryStub = mockAddSurveyRepository()
   const sut = new DbAddSurveyUseCase(addSurveyRepositoryStub)
   return {
     sut,
