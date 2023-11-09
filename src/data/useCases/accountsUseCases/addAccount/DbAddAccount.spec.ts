@@ -4,6 +4,7 @@ import { IAddAccountRepository } from '@data/protocols/db/account/IAddAccountRep
 import { IHasher } from '@data/protocols/cryptografy/IHasher'
 import { mockAccountInputParams, mockAccountOutputParams } from '@domain/test'
 import { throwError } from '@domain/test/test-error-helper'
+import { mockEncrypter } from '@data/test'
 
 const makeAddAccountRepository = (): IAddAccountRepository => {
   class AddAccountRepositoryStub implements IAddAccountRepository {
@@ -12,14 +13,6 @@ const makeAddAccountRepository = (): IAddAccountRepository => {
     }
   }
   return new AddAccountRepositoryStub()
-}
-const makeEncrypter = (): IHasher => {
-  class EncryptStub implements IHasher {
-    async hash (value: string): Promise<string> {
-      return await new Promise((resolve, reject) => { resolve('any_password') })
-    }
-  }
-  return new EncryptStub()
 }
 
 const makeLoadAccountByEmailRepository = (): ILoadAccountByEmailRepository => {
@@ -38,7 +31,7 @@ type SutTypes = {
   loadAccountByEmailRepositoryStub: ILoadAccountByEmailRepository
 }
 const makeSut = (): SutTypes => {
-  const encryptStub = makeEncrypter()
+  const encryptStub = mockEncrypter()
   const addAccountRepositoryStub = makeAddAccountRepository()
   const loadAccountByEmailRepositoryStub = makeLoadAccountByEmailRepository()
   const sut = new DbAddAcount(encryptStub, addAccountRepositoryStub, loadAccountByEmailRepositoryStub)

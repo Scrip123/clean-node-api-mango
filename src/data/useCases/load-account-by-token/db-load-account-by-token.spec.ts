@@ -3,6 +3,7 @@ import { DbLoadAccountByToken } from './db-load-account-by-token'
 import { ILoadAccountByTokenRepository } from '@data/protocols/db/account/ILoad-account-by-token-repository'
 import { TypeAccountOutputParams } from '../accountsUseCases/addAccount/dbAddAccountProtocols'
 import { throwError } from '@domain/test/test-error-helper'
+import { mockDecrypter } from '@data/test'
 
 const makeFakeAccount = (): TypeAccountOutputParams => ({
   id: 'valid_id',
@@ -10,14 +11,7 @@ const makeFakeAccount = (): TypeAccountOutputParams => ({
   email: 'valid_email',
   password: 'hashed_password'
 })
-const makeDecrypter = (): IDecrypter => {
-  class DecrypterStub implements IDecrypter {
-    async decrypt (value: string): Promise<string> {
-      return await new Promise(resolve => resolve('any_value'))
-    }
-  }
-  return new DecrypterStub()
-}
+
 const makeLoadAccountByTokenRepository = (): ILoadAccountByTokenRepository => {
   class LoadAccountByTokenRepository implements ILoadAccountByTokenRepository {
     async loadAccountByToken (token: string, role?: string): Promise<TypeAccountOutputParams> {
@@ -32,7 +26,7 @@ type SutTypes = {
   loadAccountByTokenRepository: ILoadAccountByTokenRepository
 }
 const makeSut = (): SutTypes => {
-  const decrypterStub = makeDecrypter()
+  const decrypterStub = mockDecrypter()
   const loadAccountByTokenRepository = makeLoadAccountByTokenRepository()
   const sut = new DbLoadAccountByToken(decrypterStub, loadAccountByTokenRepository)
 
