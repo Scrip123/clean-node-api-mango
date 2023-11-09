@@ -23,13 +23,13 @@ const makeEmailValidator = (): IEmailValidator => {
   }
   return new EmailValidatorStub()
 }
-const makeAddAccount = (): IAddAccount => {
-  class AddAccountStub implements IAddAccount {
+const makeAddAccountUseCase = (): IAddAccount => {
+  class AddAccountUseCaseStub implements IAddAccount {
     async add (account: TypeAccountInputParams): Promise<TypeAccountOutputParams> {
       return await new Promise(resolve => { resolve(makeFakeAccount()) })
     }
   }
-  return new AddAccountStub()
+  return new AddAccountUseCaseStub()
 }
 const makeValidation = (): IValidation => {
   class ValidationStub implements IValidation {
@@ -39,34 +39,34 @@ const makeValidation = (): IValidation => {
   }
   return new ValidationStub()
 }
-const makeAuthentication = (): IAuthentication => {
-  class AuthenticationStub implements IAuthentication {
+const makeAuthenticationUseCase = (): IAuthentication => {
+  class AuthenticationUseCaseStub implements IAuthentication {
     async auth (authentication: TypeAuthenticationInputParams): Promise<string> {
       return await new Promise(resolve => resolve('any_token'))
     }
   }
-  return new AuthenticationStub()
+  return new AuthenticationUseCaseStub()
 }
 
 type SutTypes = {
   sut: SignUpController
   emailValidatorStub: IEmailValidator
-  addAccountStub: IAddAccount
+  addAccountUseCaseStub: IAddAccount
   validationStub: IValidation
-  authenticationStub: IAuthentication
+  authenticationUseCaseStub: IAuthentication
 }
 const makeSut = (): SutTypes => {
   const emailValidatorStub = makeEmailValidator()
-  const addAccountStub = makeAddAccount()
+  const addAccountUseCaseStub = makeAddAccountUseCase()
   const validationStub = makeValidation()
-  const authenticationStub = makeAuthentication()
-  const sut = new SignUpController(addAccountStub, validationStub, authenticationStub)
+  const authenticationUseCaseStub = makeAuthenticationUseCase()
+  const sut = new SignUpController(addAccountUseCaseStub, validationStub, authenticationUseCaseStub)
   return {
     sut,
     emailValidatorStub,
-    addAccountStub,
+    addAccountUseCaseStub,
     validationStub,
-    authenticationStub
+    authenticationUseCaseStub
   }
 }
 const makeFakeRequest = (): TypesHttpRequest => ({
@@ -85,8 +85,8 @@ const makeFakeAccount = (): TypeAccountOutputParams => ({
 })
 describe('Signup controller', () => {
   it('Should call AddAccount with correct values', async () => {
-    const { sut, addAccountStub } = makeSut()
-    const addSpy = jest.spyOn(addAccountStub, 'add')
+    const { sut, addAccountUseCaseStub } = makeSut()
+    const addSpy = jest.spyOn(addAccountUseCaseStub, 'add')
     await sut.handle(makeFakeRequest())
     expect(addSpy).toHaveBeenCalledWith({
       name: 'any_name',
@@ -96,16 +96,16 @@ describe('Signup controller', () => {
   })
 
   it('Should return 500 if AddAccount throws', async () => {
-    const { sut, addAccountStub } = makeSut()
-    jest.spyOn(addAccountStub, 'add').mockImplementationOnce(throwError)
+    const { sut, addAccountUseCaseStub } = makeSut()
+    jest.spyOn(addAccountUseCaseStub, 'add').mockImplementationOnce(throwError)
 
     const httpResponse = await sut.handle(makeFakeRequest())
     expect(httpResponse).toEqual(serverError(new ServerError()))
   })
 
   it('Should return 403 if addAccount return null', async () => {
-    const { sut, addAccountStub } = makeSut()
-    jest.spyOn(addAccountStub, 'add')
+    const { sut, addAccountUseCaseStub } = makeSut()
+    jest.spyOn(addAccountUseCaseStub, 'add')
       .mockReturnValueOnce(new Promise(resolve => resolve(null)))
     const httpResponse = await sut.handle(makeFakeRequest())
     expect(httpResponse).toEqual(forBidden(new EmailInUseError()))
@@ -135,8 +135,8 @@ describe('Signup controller', () => {
   })
 
   it('Should call Authentication with correct values', async () => {
-    const { sut, authenticationStub } = makeSut()
-    const authSpy = jest.spyOn(authenticationStub, 'auth')
+    const { sut, authenticationUseCaseStub } = makeSut()
+    const authSpy = jest.spyOn(authenticationUseCaseStub, 'auth')
 
     await sut.handle(makeFakeRequest())
     expect(authSpy).toHaveBeenCalledWith({
@@ -145,8 +145,8 @@ describe('Signup controller', () => {
     })
   })
   it('Should returns 500 if Authentication throws', async () => {
-    const { sut, authenticationStub } = makeSut()
-    jest.spyOn(authenticationStub, 'auth').mockImplementationOnce(throwError)
+    const { sut, authenticationUseCaseStub } = makeSut()
+    jest.spyOn(authenticationUseCaseStub, 'auth').mockImplementationOnce(throwError)
     const httResponse = await sut.handle(makeFakeRequest())
     expect(httResponse).toEqual(serverError(new Error()))
   })

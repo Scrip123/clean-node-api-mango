@@ -3,7 +3,7 @@ import { SaveSurveyResultController } from './Save-survey-result-controller'
 import { ILoadSurveyByIdDomain, ISaveSurveyResultDomain, InvalidParamError, TypeSurveyResultInputParams, TypeSurveyResultOutputParams, TypesHttpRequest, TypeSurveyOutputParams, forBidden, ok, serverError } from './save-survey-result-controller-protocols'
 import { throwError } from '@domain/test/test-error-helper'
 
-const makeSaveSurveyResult = (): ISaveSurveyResultDomain => {
+const makeSaveSurveyResultUseCase = (): ISaveSurveyResultDomain => {
   class SaveSurveyResultUseCaseStub implements ISaveSurveyResultDomain {
     async save (data: TypeSurveyResultInputParams): Promise<TypeSurveyResultOutputParams> {
       return await Promise.resolve(makeFakeSaveSurveyResultOutputData())
@@ -25,7 +25,7 @@ const makeFakeSaveSurveyResultOutputData = (): TypeSurveyResultOutputParams => (
   createdAt: new Date()
 })
 
-const makeSurveyLoadById = (): ILoadSurveyByIdDomain => {
+const makeSurveyLoadByIdUseCase = (): ILoadSurveyByIdDomain => {
   class LoadSurveyByIdUseCaseStub implements ILoadSurveyByIdDomain {
     async loadSurveyById (id: string): Promise<TypeSurveyOutputParams> {
       return await Promise.resolve(makeFakeSurveyData())
@@ -58,8 +58,8 @@ type SutTypes = {
   saveSurveyResultUseCaseStub: ISaveSurveyResultDomain
 }
 const makeSut = (): SutTypes => {
-  const loadSurveyByIdUseCaseStub = makeSurveyLoadById()
-  const saveSurveyResultUseCaseStub = makeSaveSurveyResult()
+  const loadSurveyByIdUseCaseStub = makeSurveyLoadByIdUseCase()
+  const saveSurveyResultUseCaseStub = makeSaveSurveyResultUseCase()
   const sut = new SaveSurveyResultController(loadSurveyByIdUseCaseStub, saveSurveyResultUseCaseStub)
   return {
     sut,

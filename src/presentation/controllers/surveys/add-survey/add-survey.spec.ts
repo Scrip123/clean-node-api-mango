@@ -12,27 +12,27 @@ const makeValidation = (): IValidation => {
   }
   return new ValidationStub()
 }
-const makeAddSurvey = (): IAddSurvey => {
-  class AddSurveyStub implements IAddSurvey {
+const makeAddSurveyUseCase = (): IAddSurvey => {
+  class AddSurveyUseCaseStub implements IAddSurvey {
     async add (data: TypeSurveyInputParams): Promise<void> {
       return await new Promise(resolve => resolve())
     }
   }
-  return new AddSurveyStub()
+  return new AddSurveyUseCaseStub()
 }
 type SutTypes = {
   sut: AddSurveyController
   validationStub: IValidation
-  addSurveyStub: IAddSurvey
+  addSurveyUseCaseStub: IAddSurvey
 }
 const makeSut = (): SutTypes => {
   const validationStub = makeValidation()
-  const addSurveyStub = makeAddSurvey()
-  const sut = new AddSurveyController(validationStub, addSurveyStub)
+  const addSurveyUseCaseStub = makeAddSurveyUseCase()
+  const sut = new AddSurveyController(validationStub, addSurveyUseCaseStub)
   return {
     sut,
     validationStub,
-    addSurveyStub
+    addSurveyUseCaseStub
   }
 }
 const makeFakeRequest = (): TypesHttpRequest => ({
@@ -69,16 +69,16 @@ describe('Add Survey Controller', () => {
   })
 
   it('should calls AddSurvey with correct values', async () => {
-    const { sut, addSurveyStub } = makeSut()
-    const addSpy = jest.spyOn(addSurveyStub, 'add')
+    const { sut, addSurveyUseCaseStub } = makeSut()
+    const addSpy = jest.spyOn(addSurveyUseCaseStub, 'add')
     const httpRequest = makeFakeRequest()
     await sut.handle(httpRequest)
     expect(addSpy).toHaveBeenCalledWith(httpRequest.body)
   })
 
   it('should reutrns 500 if AddSurvey throws', async () => {
-    const { sut, addSurveyStub } = makeSut()
-    jest.spyOn(addSurveyStub, 'add').mockImplementationOnce(throwError)
+    const { sut, addSurveyUseCaseStub } = makeSut()
+    jest.spyOn(addSurveyUseCaseStub, 'add').mockImplementationOnce(throwError)
     const httpRequest = makeFakeRequest()
     const httpResponse = await sut.handle(httpRequest)
     expect(httpResponse).toEqual(serverError(new Error()))

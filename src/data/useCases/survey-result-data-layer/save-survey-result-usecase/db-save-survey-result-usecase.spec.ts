@@ -4,7 +4,7 @@ import { ISaveSurveyResultRepository, TypeSurveyResultInputParams, TypeSurveyRes
 import { throwError } from '@domain/test/test-error-helper'
 import { mockSurveyResultInputParams, mockSurveyResultOutputParams } from '@domain/test'
 
-const makeSaveSurveyResult = (): ISaveSurveyResultRepository => {
+const makeSaveSurveyResultRepository = (): ISaveSurveyResultRepository => {
   class SaveSurveyResultRepositoryStub implements ISaveSurveyResultRepository {
     async save (data: TypeSurveyResultInputParams): Promise<TypeSurveyResultOutputParams> {
       return await new Promise(resolve => resolve(mockSurveyResultOutputParams()))
@@ -18,7 +18,7 @@ type SutTypes = {
   saveSurveyResultRepositoryStub: ISaveSurveyResultRepository
 }
 const makeSut = (): SutTypes => {
-  const saveSurveyResultRepositoryStub = makeSaveSurveyResult()
+  const saveSurveyResultRepositoryStub = makeSaveSurveyResultRepository()
   const sut = new DbSaveSurveyResultUseCase(saveSurveyResultRepositoryStub)
   return {
     sut,

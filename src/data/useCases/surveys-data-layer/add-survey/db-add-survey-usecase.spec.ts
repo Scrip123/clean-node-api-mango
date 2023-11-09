@@ -3,7 +3,7 @@ import { TypeSurveyInputParams, IAddSurveyRepository } from './db-add-survey-use
 import { DbAddSurveyUseCase } from './db-add-survey-usecase-protocols'
 import { throwError } from '@domain/test/test-error-helper'
 
-const makeSutAddSurvey = (): IAddSurveyRepository => {
+const makeAddSurveyRepository = (): IAddSurveyRepository => {
   class AddSurveyRepositoryStub implements IAddSurveyRepository {
     async add (data: TypeSurveyInputParams): Promise<void> {
       return await new Promise(resolve => resolve())
@@ -17,7 +17,7 @@ type SutTypes = {
   addSurveyRepositoryStub: IAddSurveyRepository
 }
 const makeSut = (): SutTypes => {
-  const addSurveyRepositoryStub = makeSutAddSurvey()
+  const addSurveyRepositoryStub = makeAddSurveyRepository()
   const sut = new DbAddSurveyUseCase(addSurveyRepositoryStub)
   return {
     sut,
