@@ -1,8 +1,9 @@
 import { MissingParamError } from '@presentation/errors'
 import { badRequest, ok, serverError, unAuthorized } from '@presentation/helpers/http/httpHelper'
 import { LoginController } from './LoginController'
-import { TypesHttpRequest, IAuthentication, IValidation, TypeAuthenticationInputParams } from './loginProtocols'
+import { TypesHttpRequest, IAuthentication, IValidation } from './loginProtocols'
 import { throwError } from '@domain/test/test-error-helper'
+import { mockAuthenticationUseCase, mockValidation } from '@presentation/test'
 
 type SutTypes = {
   sut: LoginController
@@ -10,25 +11,9 @@ type SutTypes = {
   validationStub: IValidation
 }
 
-const makeAuthenticationUseCase = (): IAuthentication => {
-  class AuthenticationUseCaseStub implements IAuthentication {
-    async auth (authentication: TypeAuthenticationInputParams): Promise<string> {
-      return await new Promise(resolve => resolve('any_token'))
-    }
-  }
-  return new AuthenticationUseCaseStub()
-}
-const makeValidation = (): IValidation => {
-  class ValidationStub implements IValidation {
-    validate (input: any): Error {
-      return null
-    }
-  }
-  return new ValidationStub()
-}
 const makeSut = (): SutTypes => {
-  const authenticationUseCaseStub = makeAuthenticationUseCase()
-  const validationStub = makeValidation()
+  const authenticationUseCaseStub = mockAuthenticationUseCase()
+  const validationStub = mockValidation()
   const sut = new LoginController(authenticationUseCaseStub, validationStub)
   return {
     sut,

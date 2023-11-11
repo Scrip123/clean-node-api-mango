@@ -2,7 +2,7 @@ import { TypeSurveyResultInputParams, TypeSurveyResultOutputParams } from '@doma
 
 export const mockSurveyResultInputParams = (): TypeSurveyResultInputParams => ({
   surveyId: 'any_survey_id',
-  accountId: 'user_id',
+  accountId: 'any_user_id',
   answer: 'any_answer',
   createdAt: new Date()
 })
@@ -10,7 +10,7 @@ export const mockSurveyResultInputParams = (): TypeSurveyResultInputParams => ({
 export const mockSurveyResultOutputParams = (): TypeSurveyResultOutputParams => ({
   id: 'any_id',
   surveyId: 'any_survey_id',
-  accountId: 'user_id',
+  accountId: 'any_user_id',
   answer: 'any_answer',
   createdAt: new Date()
 })

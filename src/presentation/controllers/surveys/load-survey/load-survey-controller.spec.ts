@@ -1,34 +1,18 @@
 import mockdate from 'mockdate'
 import { LoadSurveyController } from './Load-survey-controller'
-import { TypeSurveyOutputParams, ILoadSurveyUseCaseDomain } from './load-survey-controller-protocols'
+import { ILoadSurveyUseCaseDomain } from './load-survey-controller-protocols'
 import { noContent, ok, serverError } from '@presentation/helpers/http/httpHelper'
 import { throwError } from '@domain/test/test-error-helper'
+import { mockSurveyOutputParams } from '@domain/test'
+import { mockLoadSurveyUseCase } from '@presentation/test/mock-survey-usecase'
 
-const makeFakeSurveyRequest = (): TypeSurveyOutputParams[] => {
-  return [{
-    id: 'any_id',
-    question: 'any_value',
-    answers: [{
-      image: 'any_image',
-      answer: 'any_value'
-    }],
-    createdAt: new Date()
-  }]
-}
 type SutTypes = {
   sut: LoadSurveyController
   loadSurveyUseCaseStub: ILoadSurveyUseCaseDomain
 }
-const makeLoadSurveyUseCase = (): ILoadSurveyUseCaseDomain => {
-  class LoadSurveyUseCaseStub implements ILoadSurveyUseCaseDomain {
-    async loadSurveys (): Promise<TypeSurveyOutputParams[]> {
-      return await new Promise(resolve => resolve(makeFakeSurveyRequest()))
-    }
-  }
-  return new LoadSurveyUseCaseStub()
-}
+
 const makeSut = (): SutTypes => {
-  const loadSurveyUseCaseStub = makeLoadSurveyUseCase()
+  const loadSurveyUseCaseStub = mockLoadSurveyUseCase()
   const sut = new LoadSurveyController(loadSurveyUseCaseStub)
   return {
     sut,
@@ -53,7 +37,7 @@ describe('LoadSurveys Controller', () => {
   it('should return 200 on success', async () => {
     const { sut } = makeSut()
     const httResponse = await sut.handle({})
-    expect(httResponse).toEqual(ok(makeFakeSurveyRequest()))
+    expect(httResponse).toEqual(ok([mockSurveyOutputParams()]))
   })
 
   it('should reutrns 204 if LoadSurveys returns empty', async () => {

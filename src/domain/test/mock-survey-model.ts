@@ -4,7 +4,7 @@ export const mockSurveyInputParams = (): TypeSurveyInputParams => ({
   question: 'any_question',
   answers: [{
     image: 'any_image',
-    answer: 'any_question'
+    answer: 'any_answer'
   }],
   createdAt: new Date()
 })
@@ -14,7 +14,7 @@ export const mockSurveyOutputParams = (): TypeSurveyOutputParams => ({
   question: 'any_question',
   answers: [{
     image: 'any_image',
-    answer: 'any_question'
+    answer: 'any_answer'
   }],
   createdAt: new Date()
 })

@@ -2,51 +2,17 @@ import { SignUpController } from './SignUpController'
 import { MissingParamError, ServerError } from '@presentation/errors'
 import {
   IEmailValidator,
-  TypeAccountOutputParams,
   IAddAccount,
-  TypeAccountInputParams,
   TypesHttpRequest,
   IValidation,
-  IAuthentication,
-  TypeAuthenticationInputParams
+  IAuthentication
 }
   from './signUpProtocols'
 import { ok, badRequest, serverError, forBidden } from '@presentation/helpers/http/httpHelper'
 import { EmailInUseError } from '@presentation/errors/EmailInUseError'
 import { throwError } from '@domain/test/test-error-helper'
-
-const makeEmailValidator = (): IEmailValidator => {
-  class EmailValidatorStub implements IEmailValidator {
-    isValid (email: string): boolean {
-      return true
-    }
-  }
-  return new EmailValidatorStub()
-}
-const makeAddAccountUseCase = (): IAddAccount => {
-  class AddAccountUseCaseStub implements IAddAccount {
-    async add (account: TypeAccountInputParams): Promise<TypeAccountOutputParams> {
-      return await new Promise(resolve => { resolve(makeFakeAccount()) })
-    }
-  }
-  return new AddAccountUseCaseStub()
-}
-const makeValidation = (): IValidation => {
-  class ValidationStub implements IValidation {
-    validate (input: any): Error {
-      return null
-    }
-  }
-  return new ValidationStub()
-}
-const makeAuthenticationUseCase = (): IAuthentication => {
-  class AuthenticationUseCaseStub implements IAuthentication {
-    async auth (authentication: TypeAuthenticationInputParams): Promise<string> {
-      return await new Promise(resolve => resolve('any_token'))
-    }
-  }
-  return new AuthenticationUseCaseStub()
-}
+import { mockAddAccountUseCase, mockAuthenticationUseCase, mockEmailValidator } from '@presentation/test'
+import { mockValidation } from '@presentation/test/mock-validation'
 
 type SutTypes = {
   sut: SignUpController
@@ -56,10 +22,10 @@ type SutTypes = {
   authenticationUseCaseStub: IAuthentication
 }
 const makeSut = (): SutTypes => {
-  const emailValidatorStub = makeEmailValidator()
-  const addAccountUseCaseStub = makeAddAccountUseCase()
-  const validationStub = makeValidation()
-  const authenticationUseCaseStub = makeAuthenticationUseCase()
+  const emailValidatorStub = mockEmailValidator()
+  const addAccountUseCaseStub = mockAddAccountUseCase()
+  const validationStub = mockValidation()
+  const authenticationUseCaseStub = mockAuthenticationUseCase()
   const sut = new SignUpController(addAccountUseCaseStub, validationStub, authenticationUseCaseStub)
   return {
     sut,
@@ -77,12 +43,7 @@ const makeFakeRequest = (): TypesHttpRequest => ({
     passwordConfirmation: 'any_password'
   }
 })
-const makeFakeAccount = (): TypeAccountOutputParams => ({
-  id: 'valid_id',
-  name: 'valid_name',
-  email: 'valid_email@gmail.com',
-  password: 'valid_password'
-})
+
 describe('Signup controller', () => {
   it('Should call AddAccount with correct values', async () => {
     const { sut, addAccountUseCaseStub } = makeSut()
